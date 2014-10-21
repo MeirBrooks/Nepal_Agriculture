@@ -1,0 +1,57 @@
+#images
+*.png
+*.eps
+*.pdf
+*.gif
+*.jpeg
+*.emf
+
+#data files and log files
+*.dta
+*.log
+*.smcl
+
+#word files
+*.doc
+*.docx
+*.txt
+
+#excel files
+
+*.xls
+*.xlsx
+*.csv
+*.xml
+
+#pdf files
+*.pdf
+
+#temporary files
+*~
+
+#tex-files
+*.tex
+*.aux
+*.lot
+*.out
+*.synctex.gz
+
+#images
+*.jpeg
+*.emf
+*.esp
+*.gif
+*.wmf
+*.jpg
+*.png
+*.gph
+*.eps
+
+
+# data directories
+/Raw_Data
+/Reconciled_Data
+/Datasets
+Rebuild/Do_files/round3/san_r3_data_V05_clean_RG.do
+Rebuild/Do_files/round4/san_r4_data_V01_clean_AV.do
+Corrections and changes from old version/latrine variables by rounds and consolidated definition.do
