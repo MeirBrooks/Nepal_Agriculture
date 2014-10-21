@@ -29,6 +29,8 @@ drop _merge
 merge m:1 id using "`DATA'/Treatment_Assignments.dta"
 **CREATE DIFFERENT TREATMENT VARIABLES**
 
+**change
+
 
 ***************************************
 ** STEP 2.1: CLEANING TREATMENT DATA **
