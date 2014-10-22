@@ -91,13 +91,14 @@ la val `V' `V'
 	}
 	
 	*SECTION D*
-	local V d01_1
+	foreach V of varlist d01_1 d01_a  {
 	replace `V' = .m if `V' == -9
 	replace `V' = .d if `V' == -1
 	replace `V' = .a if `V' == -6
+	}
 	
 	*SECTION E*
-	foreach V of varlist e01_* e06_* e13_* e19_* e28_* e42_* e49_* e55_*  {
+	foreach V of varlist e01_*  e06_* e13_* e19_* e28_* e42_* e49_* e55_*  {
 	replace `V' = .m if `V' == -9
 	replace `V' = .d if `V' == -1
 	replace `V' = .a if `V' == -6
@@ -199,24 +200,40 @@ la val `V' `V'
 	gen `V1' = d01_1
 	la var `V1' "Plots Cultivated Last Year"
 	
+	*CULTIVATION AREA (Multiplication Constants from LandArea_Conversions.xls & units.docx)
+	local V1 BL_PLOTS_AREA
+	local V2 d01_uniu // unit definition
+	local V3 d01_a // no. of units
+	gen `V1' = .
+	replace `V1' = 342.25*`V3' if `V2'==1 		// Aana:SqFeet
+	replace `V1' = 1.6735*43560*`V3' if `V2'==2 // Bigha:Acre:SqFeet
+	replace `V1' = 0.0837*43560*`V3' if `V2'==3 // Kattha/Biswa:Acre:SqFeet
+	replace `V1' = 21.39*`V3' if `V2'==4 		// Dam:SqFeet
+	replace `V1' = 182.222*`V3' if `V2'==5 		// Dhur:SqFeet
+	replace `V1' = 1.5*`V3' if `V2'==6 			// Hatt:SqFeet	(??? - check)
+	replace `V1' = 85.56*`V3' if `V2'==7 		// Paisa:SqFeet	
+	replace `V1' = 5476*`V3' if `V2'==8 		// Ropani:SqFeet
+	replace `V1' = 1.93*5476*`V3' if `V2'==9 	// Hal:Ropani(avg of irrigable/unirrigble):SqFeet
+	replace `V1' = `V1'/43560					//SqFeet:Acre
+	la var `V1' "Cultivation Area (Acres)"
+	
  *SECTION E*
-	*CULTIVATION AREA (Multiplication Constants from LandArea_Conversions.xls)
-	/* KILL THIS CODE FOR NOW.
+	*CULTIVATION AREA (Multiplication Constants from LandArea_Conversions.xls & units.docx)
 	local V1 BL_MAIZE_AREA
 	local V2 e01_unit // unit definition
 	local V3 e01_2 // no. of units
 	gen `V1' = .
-	la var `V1' "Farm Area (Acres)"
-	replace `V1' = ???*`V3' if `V3'==1 // Aana	
-	replace `V1' = 1.6735*`V3' if `V3'==1 // Bigha	
-	replace `V1' = 0.0837*`V3' if `V3'==1 // Kattha/Biswa
-	replace `V1' = ???*`V3' if `V3'==1 // Dam	
-	replace `V1' = 0.0042*`V3' if `V3'==1 // Dhur	
-	replace `V1' = ???*`V3' if `V3'==1 // Hatt	
-	replace `V1' = ???*`V3' if `V3'==1 // Paisa	
-	replace `V1' = 0.1257*`V3' if `V3'==1 // Ropani
-	replace `V1' = 0.1257`V3' if `V3'==1 // Hal	
-	*/
+	replace `V1' = 342.25*`V3' if `V2'==1 		// Aana:SqFeet
+	replace `V1' = 1.6735*43560*`V3' if `V2'==2 // Bigha:Acre:SqFeet
+	replace `V1' = 0.0837*43560*`V3' if `V2'==3 // Kattha/Biswa:Acre:SqFeet
+	replace `V1' = 21.39*`V3' if `V2'==4 		// Dam:SqFeet
+	replace `V1' = 182.222*`V3' if `V2'==5 		// Dhur:SqFeet
+	replace `V1' = 1.5*`V3' if `V2'==6 			// Hatt:SqFeet	(??? - check)
+	replace `V1' = 85.56*`V3' if `V2'==7 		// Paisa:SqFeet	
+	replace `V1' = 5476*`V3' if `V2'==8 		// Ropani:SqFeet
+	replace `V1' = 1.93*5476*`V3' if `V2'==9 	// Hal:Ropani(avg of irrigable/unirrigble):SqFeet
+	replace `V1' = `V1'/43560					//SqFeet:Acre
+	la var `V1' "Cultivation Area for Maize (Acres)"
 	
 	*MAIZE PLOTS
 	local V1 BL_PLOTS_MAIZE
