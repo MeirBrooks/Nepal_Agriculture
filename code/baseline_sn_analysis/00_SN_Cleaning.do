@@ -35,28 +35,35 @@ OUTPUTS: 	TBD
 *******************************************************************/
 
 *************************************************
-* STEP #1: CLEAN/RESHAPE SECTION M (SN DATA)	*
+* STEP 0: CREATE UNIUQE IDS	IN BASELINE DATA	*
 *************************************************
-
-*CREATE UNIUQE HHID
+*CREATE UNIQUE HHID
 egen hhid = concat(a03 a05 a07 a08 a09)
-unique hhid
-label var hhid "Household ID"
-keep hhid a* m*
-order hhid 
+egen ward_id = concat(a03 a05 a07 a08) 
+la var hhid "Household ID"
+la var ward_id "Dist/ASC/VDC/Ward ID"
 
-**CLEANING**
+tempfile BASELINE
+save `BASELINE'
+
+
+*************************************************
+* STEP 1: CLEAN/RESHAPE SECTION M (SN DATA)		*
+*************************************************
+use `BASELINE'
+keep 	hhid ward_id a03 a05 a07 a08 a09 a10 /// ID VARIABLES
+		m00* m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11* // SN VARIABLES
+order 	hhid ward_id
+
+**1.1 CLEANING**
 mvdecode m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11*, mv(-9=.m\-6=.a)
 recode m01* (2=0)
 tab m01_1
 label define YesNo 0 "No" 1 "Yes" .m "Missing" .a "Don't know", modify 
 label values m01* YesNo 
 
-**RESHAPE**
-keep 	hhid a03 a05 a07 a08 a09 /// ID VARIABLES
-		m00* m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11* // SN VARIABLES
-		
-	*STORE LABELS FOR RESHAPE*	
+**1.2 RESHAPE*
+ *STORE LABELS FOR RESHAPE*	
 	forv i=0/11{
 		if `i'<10{
 			local FILL 0 
@@ -67,9 +74,10 @@ keep 	hhid a03 a05 a07 a08 a09 /// ID VARIABLES
 		local m`FILL'`i' : var label m`FILL'`i'_1
 	}
 
+ *RESHAPE*
 reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhid a03 a05 a07 a08 a09) j(sn_member) 
 	
-	*LABEL VARIABLES*
+ *LABEL VARIABLES*
 	la var sn_member "SN Member Number (1-9)"
 	forv i=0/11{
 		if `i'<10{
@@ -91,13 +99,15 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 *************************************************
 * STEP #2: MATCH SN MEMBERS TO HHIDS			*
 *************************************************
-*RELOAD BASELINE DATA*
-	if `SAMPADA'==1{
-	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta", clear
-	}
+use `BASELINE'
+keep hhid ward_id a12
+rename a12 m00_
+rename hhid SN_hhid
 
-	if `DEREK'==1{
-	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta", clear
-	}
+tempfile SN_HHID
+save `SN_HHID'
+
+use `SN_DATA' 
+merge m:m m00_ ward_id using `SN_HHID'
 
 	
