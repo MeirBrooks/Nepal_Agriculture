@@ -42,7 +42,7 @@ OUTPUTS: 	TBD
 egen hhid = concat(a03 a05 a07 a08 a09)
 unique hhid
 label var hhid "Household ID"
-keep hhid m*
+keep hhid a* m*
 order hhid 
 
 **CLEANING**
@@ -53,7 +53,7 @@ label define YesNo 0 "No" 1 "Yes" .m "Missing" .a "Don't know", modify
 label values m01* YesNo 
 
 **RESHAPE**
-keep 	hhid 	a03 a05 a07 a08 a09 /// ID VARIABLES
+keep 	hhid a03 a05 a07 a08 a09 /// ID VARIABLES
 		m00* m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11* // SN VARIABLES
 		
 	*STORE LABELS FOR RESHAPE*	
@@ -67,7 +67,7 @@ keep 	hhid 	a03 a05 a07 a08 a09 /// ID VARIABLES
 		local m`FILL'`i' : var label m`FILL'`i'_1
 	}
 
-reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhid ) j(sn_member) 
+reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhid a03 a05 a07 a08 a09) j(sn_member) 
 	
 	*LABEL VARIABLES*
 	la var sn_member "SN Member Number (1-9)"
@@ -82,6 +82,7 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 		la var m`FILL'`i'_ "`m`FILL'`i''"
 	}
 
+	sort a03 a05 a07 a08 a09 sn_member
 	tempfile SN_DATA
 	save `SN_DATA'
 	
