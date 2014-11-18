@@ -53,9 +53,9 @@ label define YesNo 0 "No" 1 "Yes" .m "Missing" .a "Don't know", modify
 label values m01* YesNo 
 
 **RESHAPE**
-keep id m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11*
+keep hhid m00* m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11*
 	*STORE LABELS FOR RESHAPE*	
-	forv i=1/11{
+	forv i=0/11{
 		if `i'<10{
 			local FILL 0 
 		}
@@ -65,11 +65,11 @@ keep id m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11*
 		local m`FILL'`i' : var label m`FILL'`i'_1
 	}
 
-reshape long m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(id) j(sn_member) 
+reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhid) j(sn_member) 
 	
 	*LABEL VARIABLES*
 	la var sn_member "SN Member Number (1-9)"
-	forv i=1/11{
+	forv i=0/11{
 		if `i'<10{
 			local FILL 0 
 		}
