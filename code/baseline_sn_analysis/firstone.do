@@ -1,7 +1,20 @@
 clear
 cap log close
-log using firstanalysis, text replace
-use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
+
+**SET USER**
+local SAMPADA 	0 
+local DEREK 	0
+	*USER SPECIFIC LOG + DATA LOAD*
+	if `SAMPADA'==0{
+	log using firstanalysis, text replace // change to github folder for logs
+	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
+	}
+
+	if `DEREK'==0{
+	log using Y:\Nepal_Agriculture\NPL_SN_Analysis", smcl replace
+	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta"
+	}
+
 egen id = concat( a03 a05 a07 a08 a09)
 unique id
 label var id "household id"
