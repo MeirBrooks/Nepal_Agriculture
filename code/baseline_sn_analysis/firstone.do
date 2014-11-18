@@ -39,11 +39,11 @@ OUTPUTS: 	TBD
 *************************************************
 
 *CREATE UNIUQE HHID
-egen id = concat( a03 a05 a07 a08 a09)
-unique id
-label var id "Household ID"
-keep id m*
-order id 
+egen hhid = concat( a03 a05 a07 a08 a09)
+unique hhid
+label var hhid "Household ID"
+keep hhid m*
+order hhid 
 
 **CLEANING**
 mvdecode m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11*, mv(-9=.m\-6=.a)
@@ -78,4 +78,21 @@ reshape long m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(id) j(sn
 		}
 		
 		la var m`FILL'`i'_ "`m`FILL'`i''"
+	}
+
+	tempfile SN_DATA
+	save `SN_DATA'
+	
+//END STEP 1
+
+*************************************************
+* STEP #2: MATCH SN MEMBERS TO HHIDS			*
+*************************************************
+*RELOAD BASELINE DATA*
+	if `SAMPADA'==1{
+	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta", clear
+	}
+
+	if `DEREK'==1{
+	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta", clear
 	}
