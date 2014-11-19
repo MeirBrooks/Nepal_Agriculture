@@ -5,20 +5,19 @@ clear
 set more off
 cap log close
 
-**SET USER**
-local SAMPADA 	0 
-local DEREK 	1
-
 	*USER SPECIFIC LOG + DATA LOAD*
-	if `SAMPADA'==1{
-	log using firstanalysis, text replace // change to github folder for logs
-	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
+	if "`c(username)'"=="sampadakc"{
+	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA	
+	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta" //CHANGE TO DROPBOX LOCATION WHEN SAMPADA GETS BOXCRYPTOR
 	}
 
-	if `DEREK'==1{
-	log using "Y:\Nepal_Agriculture\logs\baseline_sn_analysis\NPL_SN_Analysis", smcl replace
+	if "`c(username)'"=="dwolfson"{
+	local GITHUBDIR "Y:/Nepal_Agriculture"
 	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta"
 	}
+	
+	log using "`GITHUBDIR'/logs/baseline_sn_analysis/NPL_SN_Analysis", smcl replace
+	di "Ran by `c(username)'"
 	
 /*****************************************************************
 PROJECT: 	NEPAL AGRICULTURE - ICIMOD
@@ -43,12 +42,17 @@ egen ward_id = concat(a03 a05 a07 a08)
 la var hhid "Household ID"
 la var ward_id "Dist/ASC/VDC/Ward ID"
 
+*************************************************
+* STEP 1: MANUAL SN NAME CLEANING				*
+*************************************************
+
+include "`GITHUBDIR'/code/baseline_sn_analysis/01_SN_Manual_Matching.do"
+
 tempfile BASELINE
 save `BASELINE'
 
-
 *************************************************
-* STEP 1: CLEAN/RESHAPE SECTION M (SN DATA)		*
+* STEP 2: CLEAN/RESHAPE SECTION M (SN DATA)		*
 *************************************************
 use `BASELINE'
 keep 	hhid ward_id a03 a05 a07 a08 a09 a10 /// ID VARIABLES
@@ -64,7 +68,7 @@ label values m01* YesNo
 
 **1.2 RESHAPE*
  *STORE LABELS FOR RESHAPE*	
-	forv i=0/11{
+	forvalue i=0/11{
 		if `i'<10{
 			local FILL 0 
 		}
@@ -94,11 +98,12 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 	tempfile SN_DATA
 	save `SN_DATA'
 	
-//END STEP 1
+//END STEP 2
 
 *************************************************
 * STEP #2: MATCH SN MEMBERS TO HHIDS			*
 *************************************************
+
 use `BASELINE'
 keep hhid ward_id a12
 rename a12 m00_
