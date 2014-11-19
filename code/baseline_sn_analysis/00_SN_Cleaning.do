@@ -89,8 +89,7 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 		}
 		if `i'>=10{
 			local FILL ""
-		}
-		
+		}		
 		la var m`FILL'`i'_ "`m`FILL'`i''"
 	}
 
@@ -112,7 +111,7 @@ rename hhid SN_hhid
 tempfile SN_HHID
 save `SN_HHID'
 
-use `SN_DATA' 
+use `SN_DATA'
 merge m:m m00_ ward_id using `SN_HHID'
 
 	
