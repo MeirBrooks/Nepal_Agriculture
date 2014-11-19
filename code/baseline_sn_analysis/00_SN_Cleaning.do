@@ -16,7 +16,7 @@ local DEREK 	1
 	}
 
 	if `DEREK'==1{
-	log using "Y:\Nepal_Agriculture\NPL_SN_Analysis", smcl replace
+	log using "Y:\Nepal_Agriculture\logs\baseline_sn_analysis\NPL_SN_Analysis", smcl replace
 	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta"
 	}
 	
