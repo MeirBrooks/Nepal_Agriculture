@@ -56,9 +56,9 @@ br a10 a08 a12 m00_* if ward_id=="`WARD'"
 
 //WARD 02125
 local WARD 02125
-br a10 a08 a12 m00_8 if ward_id=="`WARD'"
+br a10 a08 a12 m00_* if ward_id=="`WARD'"
 	*SN01*
-	replace m00_1="RAJESHWORI JOSHI" if m00_1=="RAJESHAWRI" & ward_id=="`WARD'"
+	replace m00_1="RAJESHWORI JOSHI" if m00_1=="RAJESHWARI" & ward_id=="`WARD'"
 	//LAXMI JOSHI = RAJESHWORI JOSHI?
 	*SN02*
 	replace m00_2="AATMADEV JOSHI" if ward_id=="`WARD'"
