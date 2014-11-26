@@ -104,7 +104,7 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 
 use `BASELINE'
 keep hhid ward_id a12
-clonevar m00_ = a12
+rename a12 m00_
 replace m00_ = upper(m00_)
 rename hhid SN_hhid
 duplicates drop m00_ ward_id, force // DROPPING DUPLICATES -- RETURN TO THIS LATER
@@ -116,8 +116,8 @@ gen ID = _n // GEN ID FOR RECLINK
 
 reclink ward_id m00_ using `SN_HHID', idu(SN_hhid) idm(ID) gen(match) req(ward_id)
 	
-keep hhid ward_id m00_ Um00_ SN_hhid  a12 _merge match sn_member
-order hhid ward_id sn_member SN_hhid m00_  Um00_ a12 _merge match
+keep hhid ward_id m00_ Um00_ SN_hhid _merge match sn_member
+order hhid ward_id sn_member SN_hhid m00_  Um00_ _merge match
 
 *************************************************
 * STEP 3: MANUAL CLEANING AFTER MERGE			*
