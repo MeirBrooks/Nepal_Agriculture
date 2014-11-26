@@ -55,3 +55,5 @@
 Rebuild/Do_files/round3/san_r3_data_V05_clean_RG.do
 Rebuild/Do_files/round4/san_r4_data_V01_clean_AV.do
 Corrections and changes from old version/latrine variables by rounds and consolidated definition.do
+
+code/baseline_sn_analysis/firstanalysis.do
