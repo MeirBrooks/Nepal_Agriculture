@@ -52,7 +52,7 @@ include "`GITHUBDIR'/code/baseline_sn_analysis/01_SN_Manual_Matching.do"
 tempfile BASELINE
 save `BASELINE'
 
-*************************************************
+/*************************************************
 * STEP 2: CLEAN/RESHAPE SECTION M (SN DATA)		*
 *************************************************
 use `BASELINE'
@@ -99,6 +99,8 @@ reshape long m00_ m01_ m02_ m03_ m04_ m05_ m06_ m07_ m08_ m09_ m10_ m11_ , i(hhi
 	save `SN_DATA'
 	
 //END STEP 2
+
+
 
 *************************************************
 * STEP #2: MATCH SN MEMBERS TO HHIDS			*

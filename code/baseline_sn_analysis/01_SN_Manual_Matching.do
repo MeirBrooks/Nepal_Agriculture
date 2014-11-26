@@ -80,6 +80,8 @@ br a10 a08 a12 m00_* if ward_id=="`WARD'"
 	replace m00_7="KESHAV BHUL" if m00_7=="KESHAB BHUL" & ward_id=="`WARD'"
 	replace m00_7="DHANI BHUL" if m00_7=="DHANE BHUL" & ward_id=="`WARD'"
 	replace m00_7="KAUSHA BHUL" if m00_7=="KAUSA BHUL" & ward_id=="`WARD'"
+	replace m008="CHANDRA DEV JOSHI" if (m00_8=="CHANDRA DEV" | m00_8="CHANDARA DEV JOSHI") & ward_id=="`WARD'"
+	replace m008="
 	
 	*SN08*
 	*replace m00_8="CHANDRA DEV JOSHI" if (m00_8="CHANDREV" | m00_8="CHANDARA DEV JOSHI")  &  ward_id=="`WARD'"
