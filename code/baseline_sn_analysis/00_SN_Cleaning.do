@@ -53,7 +53,7 @@ save `BASELINE'
 * STEP 1: CLEAN/RESHAPE SECTION M (SN DATA)		*
 *************************************************
 use `BASELINE'
-keep 	hhid ward_id a03 a05 a07 a08 a09 a10 /// ID VARIABLES
+keep 	hhid ward_id a03 a05 a07 a08 a09 a10 a12 /// ID VARIABLES
 		m00* m01* m02* m03* m04* m05* m06* m07* m08* m09* m10* m11* // SN VARIABLES
 order 	hhid ward_id
 
