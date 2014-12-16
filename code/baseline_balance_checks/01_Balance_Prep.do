@@ -18,7 +18,7 @@ set more off
 ***********************
 ** STEP 1: LOAD DATA **
 ***********************
-local PROJECT "W:\Dropbox\Agriculture Extension Worker Project"
+local PROJECT "X:\Agriculture Extension Worker Project"
 local DATA "`PROJECT'\Analysis\data" // BOXCRYPTOR PATH FOR NPL-ICIMOD DATA
 
 *LOAD BASELINE DATA + CREATE ID FOR MERGE
