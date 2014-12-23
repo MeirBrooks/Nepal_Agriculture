@@ -9,8 +9,7 @@ cap log close
 	if "`c(username)'"=="sampadakc"{
 	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA	
 	*use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta" //CHANGE TO DROPBOX LOCATION WHEN SAMPADA GETS BOXCRYPTOR
-	use "/Volumes/Boxcryptor/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta" // DB
-	}
+	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
 
 	if "`c(username)'"=="dwolfson"{
 	local GITHUBDIR "Y:/Nepal_Agriculture"
