@@ -8,7 +8,6 @@ cap log close
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
 	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA	
-	*use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta" //CHANGE TO DROPBOX LOCATION WHEN SAMPADA GETS BOXCRYPTOR
 	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
 
 	if "`c(username)'"=="dwolfson"{
