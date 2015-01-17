@@ -2636,6 +2636,1440 @@ replace SN_hhid = "643110910" if inlist(hhid,"64311092") & sn_member==8
 
 replace SN_hhid = "643110911" if inlist(hhid,"643110910","64311094","643110911","64311093") & sn_member==9
 
+***************************************************   
+**WARDID 7441118**
+local WARDID 7441118
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74411182" if inlist(hhid,"74411181","74411182","74411185") & sn_member==2
+
+replace SN_hhid = "74411186" if inlist(hhid,"74411183","744111810") & sn_member==6
+
+replace SN_hhid = "74411187" if inlist(hhid,"744111810","74411187","74411184","74411185","74411183","74411181","74411182") & sn_member==7
+
+replace SN_hhid = "74411189" if inlist(hhid,"74411188","74411187","74411182","74411181","74411183") & sn_member==9
+
+***************************************************   
+**WARDID 7441205**
+local WARDID 7441205
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74412051" if inlist(hhid,"74412056") & sn_member==1
+
+replace SN_hhid = "74412052" if inlist(hhid,"74412056","744120512","74412051","74412055","744120513","74412054") & sn_member==2
+
+**UNSURE MATCH**
+replace SN_hhid = "74412052"if inlist(hhid,"744120511") & sn_member==2
+****
+
+replace SN_hhid = "74412053" if ward_id=="7441205" & sn_member==3
+
+replace SN_hhid = "74412054" if inlist(hhid,"744120515") & sn_member==4
+
+replace SN_hhid = "74412055" if inlist(hhid,"74412054") & sn_member==5
+
+replace SN_hhid = "744120511" if inlist(hhid,"744120512") & sn_member==5
+
+**UNSURE MATCH**
+replace SN_hhid = "74412054" if inlist(hhid,"74412057","74412058") & sn_member==5
+replace SN_hhid = "74412055" if inlist(hhid,"744120510") & sn_member==4
+replace SN_hhid = "74412055" if inlist(hhid,"74412056","744120512") & sn_member==5
+****
+
+replace SN_hhid = "74412056" if inlist(hhid,"74412053","74412052") & sn_member==6
+
+replace SN_hhid = "74412058" if inlist(hhid,"74412051") & sn_member==8
+
+replace SN_hhid = "74412058" if inlist(hhid,"74412054") & sn_member==9
+
+replace SN_hhid = "74412059" if inlist(hhid,"74412055") & sn_member==9
+
+***************************************************   
+**WARDID 7441253**
+local WARDID 7441253
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74412532" if ward_id=="7441253" & sn_member==2
+
+replace SN_hhid = "74412533" if inlist(hhid,"74412534") & sn_member==3
+
+replace SN_hhid = "74412534" if inlist(hhid,"74412538") & sn_member==4
+
+replace SN_hhid = "74412536" if ward_id=="7441253" & sn_member==6
+
+replace SN_hhid = "744125311" if inlist(hhid,"74412537") & sn_member==9
+
+***************************************************   
+**WARDID 7451123**
+local WARDID 7451123
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74511232" if ward_id=="7451123" & sn_member==2
+
+replace SN_hhid = "74511233" if ward_id=="7451123" & sn_member==3
+
+replace SN_hhid = "74511234" if ward_id=="7451123" & sn_member==4
+
+replace SN_hhid = "74511235" if inlist(hhid,"745112313") & sn_member==5
+
+replace SN_hhid = "74511239" if inlist(hhid,"74511237") & sn_member==9
+
+***************************************************   
+**WARDID 7451124**
+local WARDID 7451124
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74511241" if ward_id=="7451124" & sn_member==1
+
+replace SN_hhid = "74511242" if ward_id=="7451124" & sn_member==2
+
+replace SN_hhid = "74511242" if inlist(hhid,"74511246") & sn_member==3
+
+replace SN_hhid = "74511244" if inlist(hhid,"74511248","74511247","745112410","745112412") & sn_member==4
+
+replace SN_hhid = "74511246" if inlist(hhid,"745112414","745112412","74511248","745112410","74511241","74511242","745112413","74511247") & sn_member==6
+
+replace no_match = 1 if inlist(hhid,"745112410","74511244","745112415") & sn_member==6
+
+replace SN_hhid = "74511247" if inlist(hhid,"74511244","745112410","745112413","745112415","745112412","745112414","745112411","74511243") & sn_member==7
+
+**UNSURE MATCH**
+replace SN_hhid = "74511242" if inlist(hhid,"74511248") & sn_member==7
+****
+
+replace SN_hhid = "74511248" if ward_id=="7451124" & sn_member==8
+
+replace SN_hhid = "74511249" if inlist(hhid,"74511245") & sn_member==9
+
+***************************************************   
+**WARDID 7451124**
+local WARDID 7451124
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74511241" if ward_id=="7451124" & sn_member==1
+
+replace SN_hhid = "74511242" if ward_id=="7451124" & sn_member==2
+
+replace SN_hhid = "74511243" if inlist(hhid,"74511246") & sn_member==3
+
+replace SN_hhid = "74511244" if inlist(hhid,"745112413","745112415","74511248","74511247","745112410","745112412") & sn_member==4
+
+**UNSURE MATCH**
+replace SN_hhid = "74511244" if inlist(hhid,"74511244","74511246","745112414") & sn_member==4
+****
+
+replace SN_hhid = "74511246" if ward_id=="7451124" & sn_member==6
+
+replace SN_hhid = "74511247" if ward_id=="7451124" & sn_member==7
+
+replace SN_hhid = "74511248" if ward_id=="7451124" & sn_member==8
+
+replace SN_hhid = "74511249" if inlist(hhid,"74511245") & sn_member==9
+
+***************************************************   
+**WARDID 7451165**
+local WARDID 7451165
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74511652" if ward_id=="7451165" & sn_member==2
+
+replace SN_hhid = "74511653" if ward_id=="7451165" & sn_member==3
+
+replace SN_hhid = "74511655" if inlist(hhid,"74511655") & sn_member==5
+
+replace SN_hhid = "74511656" if inlist(hhid,"74511651") & sn_member==6
+
+replace SN_hhid = "74511654" if inlist(hhid,"74511654") & sn_member==7
+
+replace SN_hhid = "74511658" if ward_id=="7451165" & sn_member==8
+
+replace SN_hhid = "74511659" if ward_id=="7451165" & sn_member==9
+
+***************************************************   
+**WARDID 7461139**
+local WARDID 7461139
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74611392" if inlist(hhid,"746113911") & sn_member==2
+
+replace SN_hhid = "74611394" if inlist(hhid,"746113910") & sn_member==4
+
+replace SN_hhid = "74611395" if ward_id=="7461139" & sn_member==5
+
+replace no_match = 1 if inlist(hhid,"746113914") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"746113914") & sn_member==8
+
+replace SN_hhid = "74611397" if inlist(hhid,"74611396") & sn_member==7
+
+replace SN_hhid = "74611398" if inlist(hhid,"74611399","74611391","74611392","74611394") & sn_member==8
+
+**UNSURE MATCH**
+replace SN_hhid = "746113911" if inlist(hhid,"746113913",") & sn_member==8
+replace SN_hhid = "746113911" if inlist(hhid,"746113912",") & sn_member==9
+****
+
+replace SN_hhid = "74611399" if inlist(hhid,"74611395","74611393","74611394","74611396","74611391","74611399","74611392","74611397") & sn_member==9
+
+***************************************************   
+**WARDID 7461182**
+local WARDID 7461182 
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74611821" if ward_id=="7461182" & sn_member==1
+
+replace SN_hhid = "74611822" if inlist(hhid,"74611825") & sn_member==2
+
+replace SN_hhid = "74611824" if ward_id=="7461182" & sn_member==4
+
+replace SN_hhid = "74611826" if inlist(hhid,"74611825") & sn_member==6
+
+replace SN_hhid = "74611827" if inlist(hhid,"74611825","74611828") & sn_member==7
+
+replace SN_hhid = "74611829" if ward_id=="7461182" & sn_member==9
+
+***************************************************   
+**WARDID 7461222**
+local WARDID 7461222
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74612223" if inlist(hhid,"74612229") & sn_member==3
+
+replace SN_hhid = "74612224" if inlist(hhid,"74612223") & sn_member==4
+
+replace SN_hhid = "74612225" if inlist(hhid,"746122214","74612222") & sn_member==5
+
+replace SN_hhid = "74612227" if inlist(hhid,"74612222") & sn_member==7
+
+replace SN_hhid = "746122210" if ward_id=="7461222" & sn_member==8
+
+replace SN_hhid = "74612229" if ward_id=="7461222" & sn_member==9
+
+***************************************************   
+**WARDID 7471145**
+local WARDID 7471145
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74711452" if ward_id=="7471145" & sn_member==2
+
+replace SN_hhid = "74711453" if ward_id=="7471145" & sn_member==3
+
+replace SN_hhid = "74711454" if inlist(hhid,"74711454") & sn_member==4
+
+replace SN_hhid = "74711456" if ward_id=="7471145" & sn_member==6
+
+replace SN_hhid = "74711457" if ward_id=="7471145" & sn_member==7
+
+replace SN_hhid = "74711458" if ward_id=="7471145" & sn_member==8
+
+***************************************************   
+**WARDID 7471197**
+local WARDID 7471197
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74711972" if inlist(hhid,"747119710") & sn_member==2
+
+replace SN_hhid = "74711973" if inlist(hhid,"747119710") & sn_member==3
+
+replace SN_hhid = "74711977" if inlist(hhid,"74711971") & sn_member==7
+
+***************************************************   
+**WARDID 7471212**
+local WARDID 7471212
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74712121" if inlist(hhid,"74712128","747121213") & sn_member==1
+
+replace SN_hhid = "74712121" if inlist(hhid,"747121211","74712123") & sn_member==3
+
+replace SN_hhid = "74712125" if ward_id=="7471212" & sn_member==5
+
+replace SN_hhid = "74712126" if ward_id=="7471212" & sn_member==6
+
+replace SN_hhid = "74712127" if inlist(hhid,"74712124","74712121","74712122") & sn_member==7
+
+replace SN_hhid = "74712129" if ward_id=="7471212" & sn_member==8
+
+replace SN_hhid = "747121215" if inlist(hhid,"74712124") & sn_member==9
+
+***************************************************   
+**WARDID 7481154**
+local WARDID 7481154
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74811542" if ward_id=="7481154" & sn_member==2
+
+replace SN_hhid = "74811543" if ward_id=="7481154" & sn_member==3
+
+replace SN_hhid = "74811545" if inlist(hhid,"74811546") & sn_member==5
+
+replace SN_hhid = "74811546" if ward_id=="7481154" & sn_member==6
+
+replace SN_hhid = "74811547" if inlist(hhid,"74811541") & sn_member==7
+
+replace SN_hhid = "74811549" if inlist(hhid,"74811541","74811543") & sn_member==9
+
+***************************************************   
+**WARDID 7481178**
+local WARDID 7481178
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74811781" if inlist(hhid,"74811782") & sn_member==1
+
+replace SN_hhid = "74811782" if inlist(hhid,"74811783","74811784","74811786") & sn_member==2
+
+replace SN_hhid = "74811783" if ward_id=="7481178" & sn_member==3
+
+replace SN_hhid = "74811784" if inlist(hhid,"74811782","748117812","74811783","748117813","748117814","74811788","74811785","748117815") & sn_member==4
+
+replace SN_hhid = "74811784" if inlist(hhid,"748117811") & sn_member==5
+
+replace SN_hhid = "74811787" if inlist(hhid,"74811782","74811781","74811784","74811783") & sn_member==7
+
+replace SN_hhid = "74811789" if ward_id=="7481178" & sn_member==9
+
+***************************************************   
+**WARDID 7481233**
+local WARDID 7481233
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74812331" if ward_id=="7481233" & sn_member==1
+
+replace SN_hhid = "74812332" if ward_id=="7481233" & sn_member==2
+
+replace SN_hhid = "74812333" if inlist(hhid,"74812338") & sn_member==3
+
+replace SN_hhid = "74812334" if inlist(hhid,"748123314","748123310","74812338") & sn_member==4
+
+replace SN_hhid = "74812336" if ward_id=="7481233" & sn_member==6
+
+replace SN_hhid = "74812337" if inlist(hhid,"74812331") & sn_member==7
+
+replace SN_hhid = "74812338" if inlist(hhid,"74812337","74812336") & sn_member==8
+
+replace SN_hhid = "74812339" if inlist(hhid,"748123313") & sn_member==9
+
+***************************************************   
+**WARDID 7491245**
+local WARDID 7491245
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "74912452" if inlist(hhid,"749124513") & sn_member==2
+
+**UNSURE MATCH**
+replace SN_hhid = "74912453" if inlist(hhid,"749124515","74912454","74912457","749124514") & sn_member==3
+****
+
+replace SN_hhid = "74912454" if inlist(hhid,"74912451","749124510","749124513") & sn_member==4
+
+replace SN_hhid = "74912455" if inlist(hhid,"74912456") & sn_member==4
+
+replace SN_hhid = "74912455" if inlist(hhid,"749124514","74912459","74912455","749124515","749124512","74912454","74912457","74912458","749124513","74912452") & sn_member==5
+
+replace no_match = 1 if inlist(hhid,"749124515","74912457","74912458","74912459") & sn_member==6
+
+replace SN_hhid = "74912456" if inlist(hhid,"74912452","74912454","749124514","74912453","749124513","749124512") & sn_member==6
+
+replace SN_hhid = "74912455" if inlist(hhid,"74912456") & sn_member==7
+
+replace SN_hhid = "74912458" if ward_id=="7491245" & sn_member==8
+
+***************************************************   
+**WARDID 8501263**
+local WARDID 8501263
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85012631" if inlist(hhid,"85012634") & sn_member==1
+
+replace SN_hhid = "85012634" if inlist(hhid,"85012633") & sn_member==4
+
+replace SN_hhid = "85012636" if inlist(hhid,"850126313","85012632","850126314") & sn_member==6
+
+replace SN_hhid = "85012639" if ward_id=="8501263" & sn_member==7
+
+replace SN_hhid = "85012638" if inlist(hhid,"850126313","850126314") & sn_member==8
+
+***************************************************   
+**WARDID 8501287**
+local WARDID 8501287
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85012871" if ward_id=="8501287" & sn_member==1
+
+replace SN_hhid = "85012872" if inlist(hhid,"85012877") & sn_member==2
+
+replace SN_hhid = "85012873" if inlist(hhid,"85012872","850128714") & sn_member==3
+
+replace SN_hhid = "85012875" if inlist(hhid,"85012876","850128715") & sn_member==5
+
+replace SN_hhid = "85012877" if inlist(hhid,"850128715") & sn_member==8
+
+replace SN_hhid = "850128715" if inlist(hhid,"850128714","85012872","85012876") & sn_member==9
+
+***************************************************   
+**WARDID 8501364**
+local WARDID 8501364
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85013641" if ward_id=="8501364" & sn_member==1
+
+replace SN_hhid = "85013642" if ward_id=="8501364" & sn_member==2
+
+replace SN_hhid = "85013643" if ward_id=="8501364" & sn_member==3
+
+replace SN_hhid = "85013645" if inlist(hhid,"85013648","85013647","85013649") & sn_member==5
+
+replace SN_hhid = "85013646" if inlist(hhid,"850136410") & sn_member==5
+
+replace SN_hhid = "85013646" if  ward_id=="8501364" & sn_member==6
+
+**UNSURE MATCH**
+replace SN_hhid = "850136411" if inlist(hhid,"85013642","85013643","850136415") & sn_member==7
+replace SN_hhid = "850136411" if inlist(hhid,"85013645") & sn_member==8
+****
+replace SN_hhid = "85013645" if inlist(hhid,"850136410") & sn_member==8
+
+replace SN_hhid = "85013648" if inlist(hhid,"85013648") & sn_member==8
+
+replace SN_hhid = "85013647" if inlist(hhid,"850136415") & sn_member==9
+
+replace SN_hhid = "850136413" if inlist(hhid,"850136414","850136412") & sn_member==9
+
+**UNSURE MATCH**
+replace SN_hhid = "85013649" if inlist(hhid,"85013644") & sn_member==9
+****
+
+***************************************************   
+**WARDID 8511274**
+local WARDID 8511274
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85112744" if  ward_id=="8511274" & sn_member==4
+
+replace SN_hhid = "85112746" if  ward_id=="8511274" & sn_member==6
+
+replace SN_hhid = "85112749" if inlist(hhid,"85112749") & sn_member==7
+
+replace SN_hhid = "85112747" if inlist(hhid,"85112745","85112743","85112747") & sn_member==7
+
+replace SN_hhid = "85112749" if inlist(hhid,"85112748") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"85112741","85112747",") & sn_member==8
+
+replace SN_hhid = "85112749" if inlist(hhid,"85112745","85112742","85112743","85112741","85112744") & sn_member==9
+
+***************************************************   
+**WARDID 8521298**
+local WARDID 8521298
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85212982" if inlist(hhid,"85212983") & sn_member==2
+
+replace SN_hhid = "85212983" if ward_id=="8521298" & sn_member==3
+
+replace no_match = 1 if inlist(hhid,"85212988") & sn_member==4
+
+replace SN_hhid = "85212985" if inlist(hhid,"852129811","852129812","852129810","85212982","852129814","85212983") & sn_member==5
+
+replace SN_hhid = "85212986" if inlist(hhid,"852129811") & sn_member==6
+
+replace SN_hhid = "85212989" if inlist(hhid,"852129813") & sn_member==8
+
+replace SN_hhid = "852129812" if inlist(hhid,"852129813") & sn_member==9
+
+***************************************************   
+**WARDID 8521343**
+local WARDID 8521343
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85213432" if inlist(hhid,"852134315") & sn_member==2
+
+replace no_match = 1 if ward_id=="8521343" & sn_member==3
+
+replace no_match = 1 if ward_id=="8521343" & sn_member==4
+
+replace SN_hhid = "85213435" if inlist(hhid,"85213433") & sn_member==5
+
+replace SN_hhid = "852134314" if inlist(hhid,"85213433") & sn_member==7
+
+replace SN_hhid = "852134312" if inlist(hhid,"85213435","85213436") & sn_member==7
+
+replace SN_hhid = "852134310" if inlist(hhid,"852134311","852134315","85213433") & sn_member==8
+
+***************************************************   
+**WARDID 8521356**
+local WARDID 8521356
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85213561" if ward_id=="8521356" & sn_member==1
+
+replace SN_hhid = "85213563" if ward_id=="8521356" & sn_member==3
+
+replace SN_hhid = "85213564" if inlist(hhid,"852135615","852135611","85213566","85213561","85213568","852135614","852135610","85213569","85213564","85213565","85213567","85213563") & sn_member==4
+
+replace SN_hhid = "85213564" if inlist(hhid,"852135613","85213562") & sn_member==6
+
+replace SN_hhid = "85213569" if inlist(hhid,"85213567","85213561") & sn_member==7
+
+replace SN_hhid = "852135613" if inlist(hhid,"852135614") & sn_member==7
+
+replace SN_hhid = "85213567" if inlist(hhid,"852135612") & sn_member==7
+
+replace SN_hhid = "85213563" if inlist(hhid,"852135610") & sn_member==8
+
+replace SN_hhid = "85213569" if inlist(hhid,"85213563") & sn_member==9
+
+replace SN_hhid = "852135612" if inlist(hhid,"85213567") & sn_member==9
+
+***************************************************   
+**WARDID 8531303**
+local WARDID 8531303
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85313034" if ward_id=="8531303" & sn_member==4
+
+**UNSURE MATCH**
+replace SN_hhid = "853130310" if inlist(hhid,"853130314") & sn_member==7
+****
+
+replace SN_hhid = "853130315" if inlist(hhid,"853130313") & sn_member==9
+
+***************************************************   
+**WARDID 8531308**
+local WARDID 8531308
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85313084" if ward_id=="8531308" & sn_member==4
+
+**UNSURE MATCH**
+replace SN_hhid = "85313085" if inlist(hhid,"85313089") & sn_member==5
+****
+
+replace no_match = 1 if ward_id=="8531308" & sn_member==7
+
+replace SN_hhid = "853130810" if inlist(hhid,"853130811") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"853130815") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"85313082") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"853130814") & sn_member==9
+
+***************************************************   
+**WARDID 8531324**
+local WARDID 8531324
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85313241" if ward_id=="8531324" & sn_member==1
+
+replace SN_hhid = "85313242" if inlist(hhid,"85313241") & sn_member==2
+
+**UNSURE MATCH**
+replace SN_hhid = "85313243" if inlist(hhid,"85313248") & sn_member==2
+****
+
+replace SN_hhid = "85313245" if ward_id=="8531324" & sn_member==5
+
+replace SN_hhid = "85313246" if ward_id=="8531324" & sn_member==6
+
+replace no_match = 1 if inlist(hhid,"853132410") & sn_member==8
+
+replace SN_hhid = "853132411" if inlist(hhid,"85313248") & sn_member==8
+
+replace SN_hhid = "853132410" if inlist(hhid,"85313246") & sn_member==9
+   
+replace SN_hhid = "853132411" if inlist(hhid,"85313249") & sn_member==9
+
+***************************************************   
+**WARDID 8541311**
+local WARDID 8541311
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85413111" if ward_id=="8541311" & sn_member==1
+
+replace SN_hhid = "85413111" if ward_id=="8541311" & sn_member==2
+
+replace SN_hhid = "85413112" if inlist(hhid,"854131110") & sn_member==3
+
+replace SN_hhid = "85413113" if inlist(hhid,"854131111","85413118","85413116","85413112","85413111") & sn_member==3
+
+replace SN_hhid = "85413114" if inlist(hhid,"85413118") & sn_member==4
+
+replace SN_hhid = "85413115" if inlist(hhid,"854131110","85413117") & sn_member==5
+
+replace SN_hhid = "85413116" if inlist(hhid,"85413117","85413118") & sn_member==6
+
+replace SN_hhid = "85413117" if inlist(hhid,"854131111","85413114","854131112","85413119","854131113","85413117","854131115") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"85413115") & sn_member==7
+
+replace SN_hhid = "85413116" if inlist(hhid,"85413116") & sn_member==8
+
+replace SN_hhid = "85413118" if inlist(hhid,"854131110","85413119") & sn_member==8
+   
+replace SN_hhid = "854131113" if inlist(hhid,"85413111") & sn_member==9
+
+replace SN_hhid = "85413118" if inlist(hhid,"85413116") & sn_member==9
+
+***************************************************   
+**WARDID 8541333**
+local WARDID 8541333
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85413331" if inlist(hhid,"85413335","854133311") & sn_member==1
+
+replace SN_hhid = "85413332" if inlist(hhid,"85413339") & sn_member==2
+
+replace SN_hhid = "85413335" if ward_id=="8541333" & sn_member==5
+
+replace SN_hhid = "85413336" if ward_id=="8541333" & sn_member==6
+
+***************************************************   
+**WARDID 8541335**
+local WARDID 8541335
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "85413351" if inlist(hhid,"854133510") & sn_member==1
+
+replace SN_hhid = "85413352" if inlist(hhid,"85413357") & sn_member==2
+
+replace SN_hhid = "85413354" if inlist(hhid,"85413355") & sn_member==4
+
+replace SN_hhid = "85413359" if inlist(hhid,"85413354") & sn_member==7
+
+replace SN_hhid = "85413358" if inlist(hhid,"85413355") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"854133511") & sn_member==7
+
+replace SN_hhid = "854133515" if inlist(hhid,"85413356","854133514") & sn_member==8
+
+replace SN_hhid = "854133513" if inlist(hhid,"854133513") & sn_member==8
+
+replace SN_hhid = "85413358" if inlist(hhid,"85413351","854133510") & sn_member==8
+
+replace SN_hhid = "854133515" if inlist(hhid,"854133514") & sn_member==8
+
+replace SN_hhid = "854133515" if inlist(hhid,"85413353","854133512") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"85413352") & sn_member==9
+   
+***************************************************   
+**WARDID 9551375 **
+local WARDID 9551375 
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95513751" if inlist(hhid,"95513757") & sn_member==1
+
+replace SN_hhid = "95513752" if inlist(hhid,"95513758") & sn_member==2
+
+replace SN_hhid = "95513753" if inlist(hhid,"95513755") & sn_member==3
+
+replace SN_hhid = "95513754" if inlist(hhid,"95513751","955137511") & sn_member==4
+
+replace SN_hhid = "95513755" if ward_id=="9551375" & sn_member==5
+
+replace SN_hhid = "955137513" if inlist(hhid,"95513755") & sn_member==7
+
+replace SN_hhid = "95513757" if inlist(hhid,"95513757","95513754","95513759") & sn_member==7
+
+replace SN_hhid = "95513759" if inlist(hhid,"95513753") & sn_member==9
+
+replace SN_hhid = "955137511" if inlist(hhid,"95513759") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"955137512","955137515","95513752","955137511") & sn_member==9
+
+***************************************************   
+**WARDID 9551471**
+local WARDID 9551471
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95514711" if ward_id=="9551471" & sn_member==1
+
+replace SN_hhid = "95514713" if ward_id=="9551471" & sn_member==3
+
+replace SN_hhid = "95514716" if ward_id=="9551471" & sn_member==6
+
+replace SN_hhid = "95514717" if inlist(hhid,"95514717","955147111","95514718","95514711","95514716") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"955147114") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"955147110","955147115","95514716","95514713") & sn_member==8
+
+replace SN_hhid = "955147114" if inlist(hhid,"955147114") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"95514717","95514718") & sn_member==9
+
+replace SN_hhid = "955147110" if inlist(hhid,"95514713") & sn_member==9
+
+***************************************************   
+**WARDID 9551479**
+local WARDID 9551479
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95514791" if ward_id=="9551479" & sn_member==1
+
+replace SN_hhid = "95514792" if ward_id=="9551479" & sn_member==2
+
+replace SN_hhid = "95514795" if ward_id=="9551479" & sn_member==5
+
+replace no_match = 1 if inlist(hhid,"955147913") & sn_member==7
+
+**UNSURE MATCH**
+replace SN_hhid = "955147911" if inlist(hhid,"95514794","955147910") & sn_member==8
+****
+
+replace SN_hhid = "955147913" if inlist(hhid,"955147913") & sn_member==8
+
+***************************************************   
+**WARDID 9561384**
+local WARDID 9561384
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95613841" if ward_id=="9561384" & sn_member==1
+
+replace SN_hhid = "95613843" if ward_id=="9561384" & sn_member==3
+
+replace SN_hhid = "95613844" if ward_id=="9561384" & sn_member==4
+
+replace SN_hhid = "95613845" if ward_id=="9561384" & sn_member==5
+
+replace SN_hhid = "956138410" if inlist(hhid,"95613844","956138410","95613845") & sn_member==7
+
+replace SN_hhid = "95613843" if inlist(hhid,"956138415","956138414","956138413","95613843") & sn_member==7
+
+replace SN_hhid = "95613848" if inlist(hhid,"95613848") & sn_member==8
+
+replace SN_hhid = "956138414" if inlist(hhid,"95613843") & sn_member==9
+
+***************************************************   
+**WARDID 9571392**
+local WARDID 9571392
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95713923" if ward_id=="9571392" & sn_member==3
+
+replace SN_hhid = "95713924" if ward_id=="9571392" & sn_member==4
+
+replace SN_hhid = "95713925" if ward_id=="9571392" & sn_member==5
+
+**UNSURE MATCH**
+replace SN_hhid = "95713928" if inlist(hhid,"95713928") & sn_member==8
+****
+
+replace SN_hhid = "957139211" if inlist(hhid,"957139211") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"95713922") & sn_member==9
+
+replace SN_hhid = "957139213" if inlist(hhid,"957139210","95713925","957139212") & sn_member==9
+
+***************************************************   
+**WARDID 9581408**
+local WARDID 9581408
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95814081" if ward_id=="9581408" & sn_member==1
+
+replace SN_hhid = "95814082" if ward_id=="9581408" & sn_member==2
+
+replace SN_hhid = "95814083" if ward_id=="9581408" & sn_member==3
+
+replace SN_hhid = "95814084" if ward_id=="9581408" & sn_member==4
+
+replace SN_hhid = "95814085" if ward_id=="9581408" & sn_member==5
+
+replace SN_hhid = "95814086" if ward_id=="9581408" & sn_member==6
+
+replace SN_hhid = "95814089" if inlist(hhid,"958140810") & sn_member==7
+
+replace SN_hhid = "95814088" if inlist(hhid,"95814088") & sn_member==8
+
+replace SN_hhid = "95814088" if inlist(hhid,"95814083","95814089","95814086") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"958140810") & sn_member==9
+
+***************************************************   
+**WARDID 9591414**
+local WARDID 9591414
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95914141" if inlist(hhid,"95914144","95914144") & sn_member==1
+
+replace SN_hhid = "95914143" if ward_id=="9591414" & sn_member==3
+
+replace SN_hhid = "95914145" if ward_id=="9591414" & sn_member==5
+
+replace SN_hhid = "95914146" if ward_id=="9591414" & sn_member==6
+
+**UNSURE MATCH**
+replace SN_hhid = "95914147" if inlist(hhid,"95914144","95914149","95914141") & sn_member==7
+replace SN_hhid = "95914147" if inlist(hhid,"959141411") & sn_member==9
+replace SN_hhid = "95914149" if inlist(hhid,"95914142","95914148","95914147") & sn_member==7
+****
+
+replace SN_hhid = "959141413" if inlist(hhid,"959141414","959141410") & sn_member==7
+
+replace SN_hhid = "959141414" if inlist(hhid,"95914141","959141413","95914145","959141415","95914143","959141410","95914149","95914144") & sn_member==8
+
+replace SN_hhid = "959141414" if inlist(hhid,"959141412") & sn_member==9
+
+replace SN_hhid = "95914148" if inlist(hhid,"95914147") & sn_member==9
+
+**UNSURE MATCH**
+replace SN_hhid = "95914149" if inlist(hhid,"959141411") & sn_member==9
+****
+
+***************************************************   
+**WARDID 9591416**
+local WARDID 9591416
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95914164" if inlist(hhid,"95914169") & sn_member==4
+
+replace no_match = 1 if ward_id=="9591416" & sn_member==5
+
+replace SN_hhid = "95914166" if ward_id=="9591416" & sn_member==6
+
+replace SN_hhid = "95914167" if inlist(hhid,"95914166") & sn_member==7
+
+replace SN_hhid = "95914167" if inlist(hhid,"95914167","95914168") & sn_member==8
+
+**UNSURE MATCH**
+replace SN_hhid = "959141612" if inlist(hhid,"959141612",") & sn_member==7
+replace SN_hhid = "959141612" if inlist(hhid,"959141613",") & sn_member==8
+****
+
+replace SN_hhid = "959141612" if inlist(hhid,"95914163","95914162") & sn_member==8
+
+replace SN_hhid = "959141610" if inlist(hhid,"95914169") & sn_member==8
+
+replace SN_hhid = "95914167" if inlist(hhid,"95914167","95914168") & sn_member==8
+
+***************************************************   
+**WARDID 9591506**
+local WARDID 9591506
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "95915061" if ward_id=="9591506" & sn_member==1
+
+replace SN_hhid = "95915062" if ward_id=="9591506" & sn_member==2
+
+replace SN_hhid = "95915063" if ward_id=="9591506" & sn_member==3
+
+replace SN_hhid = "95915066" if ward_id=="9591506" & sn_member==6
+
+replace SN_hhid = "959141614" if inlist(hhid,"95915065","959150613") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"95915063") & sn_member==7
+
+replace SN_hhid = "95915068" if inlist(hhid,"95915067","95915061","95915068") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"959150612","95915069") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"95915064","959150610","95915063") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"95915061","95915067","95915062","95915068") & sn_member==9
+
+***************************************************   
+**WARDID 9601424**
+local WARDID 9601424
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96014241" if ward_id=="9601424" & sn_member==1
+
+replace SN_hhid = "96014242" if ward_id=="9601424" & sn_member==2
+
+replace SN_hhid = "96014243" if ward_id=="9601424" & sn_member==3
+
+replace SN_hhid = "96014244" if ward_id=="9601424" & sn_member==4
+
+replace SN_hhid = "96014245" if ward_id=="9601424" & sn_member==5
+
+replace SN_hhid = "96014246" if ward_id=="9601424" & sn_member==6
+
+replace SN_hhid = "96014247" if ward_id=="9601424" & sn_member==7
+
+replace SN_hhid = "96014241" if inlist(hhid,"96014245","96014243","96014244","960142411") & sn_member==8
+
+replace SN_hhid = "96014248" if inlist(hhid,"960142410","96014249") & sn_member==8
+
+replace SN_hhid = "96014248" if inlist(hhid,"960142415","96014243","96014247","96014248") & sn_member==9
+
+replace SN_hhid = "96014249" if inlist(hhid,"96014242","96014246") & sn_member==9
+
+***************************************************   
+**WARDID 9601425**
+local WARDID 9601425 
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96014251" if ward_id=="9601425" & sn_member==1
+
+replace SN_hhid = "96014252" if ward_id=="9601425" & sn_member==2
+
+replace SN_hhid = "96014254" if ward_id=="9601425" & sn_member==3
+
+replace SN_hhid = "96014253" if ward_id=="9601425" & sn_member==4
+
+replace SN_hhid = "96014255" if inlist(hhid,"960142510") & sn_member==5
+
+replace SN_hhid = "960142513" if ward_id=="9601425" & sn_member==6
+
+replace SN_hhid = "96014257" if inlist(hhid,"96014252","96014255") & sn_member==7
+
+replace SN_hhid = "96014258" if inlist(hhid,"960142511") & sn_member==7
+
+replace SN_hhid = "960142513" if inlist(hhid,"960142514") & sn_member==7
+
+replace SN_hhid = "96014251" if inlist(hhid,"960142510","960142515") & sn_member==7
+
+replace SN_hhid = "960142511" if inlist(hhid,"960142512") & sn_member==8
+
+replace SN_hhid = "960142514" if inlist(hhid,"96014253","96014256","960142513") & sn_member==8
+
+replace SN_hhid = "960142512" if inlist(hhid,"960142511","96014251") & sn_member==8
+
+replace SN_hhid = "960142511" if inlist(hhid,"96014253","96014256","96014251","96014258","96014257","960142513","96014255") & sn_member==9
+
+***************************************************   
+**WARDID 9601451**
+local WARDID 9601451 
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96014511" if ward_id=="9601451" & sn_member==1
+
+replace SN_hhid = "96014515" if ward_id=="9601451" & sn_member==5
+
+replace SN_hhid = "96014516" if ward_id=="9601451" & sn_member==6
+
+replace no_match = 1 if nlist(hhid,"96014516","960145113","96014515",") & sn_member==7
+
+**UNSURE MATCH**
+replace SN_hhid = "960145111" if inlist(hhid,"960145112") & sn_member==7
+****
+
+replace SN_hhid = "960145113" if inlist(hhid,"960145113","96014515","96014516") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"960145110") & sn_member==7
+
+replace SN_hhid = "960145114" if inlist(hhid,"960145114","960145111","96014513") & sn_member==8
+
+replace SN_hhid = "960145112" if inlist(hhid,"96014512") & sn_member==8
+
+replace SN_hhid = "960145115" if inlist(hhid,"96014518","96014517") & sn_member==9
+
+replace no_match = 1 if inlist(hhid,"960145111","96014514","96014519","960145111") & sn_member==9
+
+replace SN_hhid = "960145111" if inlist(hhid,"96014513") & sn_member==9
+
+replace SN_hhid = "960145112" if inlist(hhid,"960145114") & sn_member==9
+
+***************************************************   
+**WARDID 9611438**
+local WARDID 9611438
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96114381" if inlist(hhid,"9611438") & sn_member==1
+
+replace SN_hhid = "96114382" if inlist(hhid,"9611438") & sn_member==2
+
+replace SN_hhid = "96114383" if inlist(hhid,"9611438") & sn_member==3
+
+replace SN_hhid = "96114384" if inlist(hhid,"9611438") & sn_member==4
+
+replace SN_hhid = "96114386" if inlist(hhid,"96114385") & sn_member==6
+
+replace SN_hhid = "961143813" if inlist(hhid,"961143813","961143815","961143814") & sn_member==7
+
+replace SN_hhid = "96114389" if inlist(hhid,"96114382") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"96114384") & sn_member==8
+
+replace SN_hhid = "961143815" if inlist(hhid,"961143813") & sn_member==9
+
+***************************************************   
+**WARDID 9611483**
+local WARDID 9611483
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96114382" if inlist(hhid,"961143833") & sn_member==2
+
+replace SN_hhid = "96114384" if inlist(hhid,"9611438315") & sn_member==4
+
+replace SN_hhid = "96114385" if ward_id=="9611483" & sn_member==5
+
+replace SN_hhid = "96114386" if ward_id=="9611483" & sn_member==6
+
+replace SN_hhid = "96114836" if inlist(hhid,"961148310") & sn_member==7
+
+replace SN_hhid = "96114838" if inlist(hhid,"96114837") & sn_member==9
+
+replace SN_hhid = "961148311" if inlist(hhid,"96114833") & sn_member==9
+
+***************************************************   
+**WARDID 9611489**
+local WARDID 9611489
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96114891" if ward_id=="9611489" & sn_member==1
+
+replace SN_hhid = "96114893" if ward_id=="9611489" & sn_member==3
+
+replace SN_hhid = "96114895" if ward_id=="9611489" & sn_member==5
+
+replace SN_hhid = "961148914" if ward_id=="9611489" & sn_member==6
+
+replace SN_hhid = "961148911" if inlist(hhid,"96114892","961148911") & sn_member==7
+
+replace SN_hhid = "961148912" if inlist(hhid,"96114892","961148911") & sn_member==8
+
+replace SN_hhid = "961148910" if inlist(hhid,"96114899","96114891") & sn_member==8
+
+replace SN_hhid = "96114898" if inlist(hhid,"96114891","96114897","96114899","96114898","96114896") & sn_member==9
+
+replace SN_hhid = "961148911" if inlist(hhid,"96114894") & sn_member==9
+
+***************************************************   
+**WARDID 9621443**
+local WARDID 9621443
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96214431" if ward_id=="9621443" & sn_member==1
+
+replace SN_hhid = "96214432" if ward_id=="9621443" & sn_member==2
+
+replace SN_hhid = "96214433" if ward_id=="9621443" & sn_member==3
+
+replace SN_hhid = "96214434" if ward_id=="9621443" & sn_member==4
+
+replace SN_hhid = "96214435" if ward_id=="9621443" & sn_member==5
+
+replace SN_hhid = "96214439" if inlist(hhid,"962144312","962144313") & sn_member==7
+
+replace SN_hhid = "96214439" if inlist(hhid,"962144314","96214436") & sn_member==8
+
+replace SN_hhid = "962144311" if inlist(hhid,"962144313","962144311") & sn_member==8
+
+replace SN_hhid = "962144310" if inlist(hhid,"96214435") & sn_member==8
+
+replace no_match = 1 if inlist(hhid,"96214437") & sn_member==9
+
+replace SN_hhid = "962144312" if inlist(hhid,"96214432") & sn_member==9
+
+replace SN_hhid = "962144310" if inlist(hhid,"962144310") & sn_member==9
+
+replace SN_hhid = "96214439" if inlist(hhid,"96214438") & sn_member==9
+
+***************************************************   
+**WARDID 9621467**
+local WARDID 9621467
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96214672" if ward_id=="9621467" & sn_member==2
+
+replace SN_hhid = "96214673" if ward_id=="9621467" & sn_member==3
+
+replace SN_hhid = "96214674" if ward_id=="9621467" & sn_member==4
+
+replace SN_hhid = "96214676" if ward_id=="9621467" & sn_member==6
+
+replace SN_hhid = "962146711" if inlist(hhid,"96214672","96214672") & sn_member==7
+
+replace SN_hhid = "962146714" if inlist(hhid,"96214679") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"96214678") & sn_member==7
+
+replace no_match = 1 if inlist(hhid,"962146710") & sn_member==8
+
+replace SN_hhid = "962146710" if inlist(hhid,"96214679") & sn_member==8
+
+**UNSURE MATCH**
+replace SN_hhid = "96214678" if inlist(hhid,"96214675","96214677") & sn_member==9
+****
+
+replace SN_hhid = "962146714" if inlist(hhid,"962146710","96214672","96214676","962146715") & sn_member==9
+
+***************************************************   
+**WARDID 9631494**
+local WARDID 9631494
+br if ward_id == "`WARDID'" 
+sort sn_member
+
+replace SN_hhid = "96314942" if inlist(hhid,"963149412") & sn_member==2
+
+replace SN_hhid = "96314943" if inlist(hhid,"96314946","963149410") & sn_member==3
+
+replace SN_hhid = "96314944" if ward_id=="9631494" & sn_member==4
+
+replace SN_hhid = "96314945" if inlist(hhid,"963149414") & sn_member==5
+
+replace SN_hhid = "96314946" if ward_id=="9631494" & sn_member==6
+
+replace SN_hhid = "96314947" if inlist(hhid,"96314943") & sn_member==7
+
+**UNSURE MATCH**
+replace SN_hhid = "963149411" if inlist(hhid,"96314943") & sn_member==9
+****
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
