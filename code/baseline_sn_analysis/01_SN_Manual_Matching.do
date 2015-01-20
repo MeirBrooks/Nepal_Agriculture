@@ -55,7 +55,7 @@ sort sn_member
 
 replace SN_hhid = "021251" if inlist(hhid,"021259","021258","021251") & sn_member==1 
 
-**UNSURE MATCH **
+**UNSURE MATCH**
 replace SN_hhid = "021251" & unsure_match = 1 if inlist(hhid,"0212515","021252","0212511","0212514","021254") & sn_member==1 
 ****   
 
@@ -149,7 +149,7 @@ replace SN_hhid = "034613" & unsure_match = 1 if inlist(hhid,"03466") & sn_membe
 ****
 
 ***************************************************
-**WARDID 0349 **
+**WARDID 0349**
 local WARDID 0349 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -223,7 +223,7 @@ replace no_match = 1 if inlist(hhid,"04834","04833","048310") & sn_member==8
 replace no_match = 1 if inlist(hhid,"048312","04834","048313","048311","04833","04835","048310") & sn_member==9
 
 ***************************************************
-**WARDID 0489 **
+**WARDID 0489**
 local WARDID 0489 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -521,7 +521,7 @@ replace SN_hhid = "1112746" if inlist(hhid,"1112747") & sn_member==6
 replace SN_hhid = "1112749" if inlist(hhid,"1112743","1112742") & sn_member==8 
 
 ***************************************************
-**WARDID 112214 **
+**WARDID 112214**
 local WARDID 112214 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -551,7 +551,7 @@ replace SN_hhid = "1122149" if inlist(hhid,"11221410","1122147","1122149") & sn_
 replace no_match =1 if inlist(hhid,"1122149") & sn_member==9
 
 ***************************************************   
-**WARDID 112231  **
+**WARDID 112231**
 local WARDID 112231 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -637,7 +637,7 @@ replace SN_hhid = "1162218" if inlist(hhid,"11622111") & sn_member==9
 replace SN_hhid = "11622115" if inlist(hhid,"11622113","1162215") & sn_member==9
 
 ***************************************************   
-**WARDID 17138 **
+**WARDID 17138**
 local WARDID 17138  
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -817,7 +817,7 @@ replace SN_hhid = "1916212" if inlist(hhid,"1916211") & sn_member==9
 replace SN_hhid = "1916211" if inlist(hhid,"1916214") & sn_member==9
 
 ***************************************************   
-**WARDID 19178 **
+**WARDID 19178**
 local WARDID 19178 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -954,7 +954,7 @@ replace SN_hhid = "2143217" if ward_id== "214321" & sn_member==7
 replace SN_hhid = "2143219" if ward_id== "214321" & sn_member==9
 
 ***************************************************   
-**WARDID 214352 **
+**WARDID 214352**
 local WARDID 214352 
 br if ward_id == "`WARDID'" 
 sort sn_member 
@@ -966,7 +966,7 @@ replace SN_hhid = "2143528" if inlist(hhid,"21435210","2143528","21435214") & sn
 replace SN_hhid = "2143529" if inlist(hhid,"21435210") & sn_member==9
 
 ***************************************************   
-**WARDID 214369 **
+**WARDID 214369**
 local WARDID 214369  
 br if ward_id == "`WARDID'" 
 sort sn_member 
