@@ -57,6 +57,7 @@ replace SN_hhid = "021251" if inlist(hhid,"021259","021258","021251") & sn_membe
 
 **UNSURE MATCH**
 replace SN_hhid = "021251" & unsure_match = 1 if inlist(hhid,"0212515","021252","0212511","0212514","021254") & sn_member==1 
+replace unsure_match = 1 if inlist(hhid,"0212515","021252","0212511","0212514","021254") & sn_member==1 
 ****   
 
 replace SN_hhid = "021253" if inlist(hhid,"0212511","021252","021255") & sn_member==3 
@@ -75,7 +76,10 @@ replace SN_hhid = "021258" if inlist(hhid,"021257","021253","0212510") & sn_memb
 
 **UNSURE MATCH**
 replace SN_hhid = "0212511" & unsure_match = 1  if inlist(hhid,"0212512","021255") & sn_member==8
-replace SN_hhid = "0212511" & unsure_match = 1  if inlist(hhid,"021252") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"0212512","021255") & sn_member==8
+replace SN_hhid = "0212511" if inlist(hhid,"021252") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"021252") & sn_member==9
+
 ****
 
 replace SN_hhid = "0212510" if inlist(hhid, "021251") & sn_member==9
@@ -121,7 +125,8 @@ replace SN_hhid = "031114" if ward_id=="03111" & sn_member==4
 replace no_match = 1 if inlist(hhid,"031111","031119","031117","031118","031115") & sn_member==5
 
 **UNSURE MATCH**
-replace SN_hhid = "031115" & unsure_match = 1  if inlist(hhid,"0311112") & sn_member==5
+replace SN_hhid = "031115" if inlist(hhid,"0311112") & sn_member==5
+replace unsure_match = 1 if inlist(hhid,"0311112") & sn_member==5
 ****
 
 replace SN_hhid = "031115" if inlist(hhid,"031114","031116") & sn_member==5
@@ -145,7 +150,8 @@ replace SN_hhid = "034644" if inlist(hhid,"03468") & sn_member==4
 replace SN_hhid = "03467" if inlist(hhid,"03467") & sn_member==5
 
 **UNSURE MATCH**
-replace SN_hhid = "034613" & unsure_match = 1 if inlist(hhid,"03466") & sn_member==7
+replace SN_hhid = "034613" if inlist(hhid,"03466") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"03466") & sn_member==7
 ****
 
 ***************************************************
@@ -163,9 +169,12 @@ replace SN_hhid = "03493" if inlist(hhid,"03497","03498","03499") & sn_member==3
 replace SN_hhid = "03494" if inlist(hhid,"03492","03493","034914") & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "03494" & unsure_match = 1  if inlist(hhid,"03499","034911","03497","03498") & sn_member==4
-replace SN_hhid = "03495" & unsure_match = 1  if inlist(hhid,"03497","03492","034911","03498","03491") & sn_member==5
+replace SN_hhid = "03494" if inlist(hhid,"03499","034911","03497","03498") & sn_member==4
+replace unsure_match = 1 if inlist(hhid,"03499","034911","03497","03498") & sn_member==4
+replace SN_hhid = "03495" if inlist(hhid,"03497","03492","034911","03498","03491") & sn_member==5
+replace unsure_match = 1  if inlist(hhid,"03497","03492","034911","03498","03491") & sn_member==5
 replace SN_hhid = "03496" & unsure_match = 1  if inlist(hhid,"03498") & sn_member==6
+replace unsure_match = 1  if inlist(hhid,"03498") & sn_member==6
 ****
 
 replace SN_hhid = "034911" if inlist(hhid,"034912") & sn_member==7
@@ -360,8 +369,7 @@ local WARDID 110241
 br if ward_id == "`WARDID'" 
 sort sn_member 
 
-replace SN_hhid = "1102411" if inlist(hhid,"1102415","1102414","1102417","1102413","hhid
-1102416") & sn_member==1
+replace SN_hhid = "1102411" if inlist(hhid,"1102415","1102414","1102417","1102413","1102416") & sn_member==1
 
 replace SN_hhid = "1102412" if ward_id =="110241" & sn_member==2
 
@@ -386,7 +394,8 @@ replace SN_hhid = "11024112" if inlist(hhid,"1102413") & sn_member==8
 replace SN_hhid = "11024111" if inlist(hhid,"1102411") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "1102419" & unsure_match = 1  if inlist(hhid,"1102417","1102412") & sn_member==8
+replace SN_hhid = "1102419" if inlist(hhid,"1102417","1102412") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"1102417","1102412") & sn_member==8
 ****
 
 replace SN_hhid = "11024115" if inlist(hhid,"11024110") & sn_member==9
@@ -437,7 +446,7 @@ replace SN_hhid = "1112041" if ward_id=="111204" & sn_member==1
 
 replace SN_hhid = "1112042" if ward_id=="111204" & sn_member==2
 
-replace SN_hhid = "1112043" if inlist(hhid,"11120411","11120412","11120414",11120415","1112044","1112046") & sn_member==3
+replace SN_hhid = "1112043" if inlist(hhid,"11120411","11120412","11120414","11120415","1112044","1112046") & sn_member==3
 
 replace SN_hhid = "1112044" if inlist(hhid,"11120414","11120415") & sn_member==4
 
@@ -458,8 +467,10 @@ replace SN_hhid = "1112044" if inlist(hhid,"11120412","11120411") & sn_member==6
 replace SN_hhid = "11120411" if inlist(hhid,"1112045") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "11120411" & unsure_match = 1  if inlist(hhid,"1112044") & sn_member==8
-replace SN_hhid = "11120411" & unsure_match = 1  if inlist(hhid,"11120412","11120411") & sn_member==9
+replace SN_hhid = "11120411" if inlist(hhid,"1112044") & sn_member==8
+replace unsure_match = 1  if inlist(hhid,"1112044") & sn_member==8
+replace SN_hhid = "11120411" if inlist(hhid,"11120412","11120411") & sn_member==9
+replace unsure_match = 1  if inlist(hhid,"11120412","11120411") & sn_member==9
 ****
 
 replace SN_hhid = "11120413" if inlist(hhid,"1112046","11120415","1112042","11120414",) & sn_member==7
@@ -490,8 +501,7 @@ replace SN_hhid = "1112642" if inlist(hhid,"1112647","1112641","1112644","111264
 
 replace SN_hhid = "1112643" if inlist(hhid,"11126415","1112649","1112644",) & sn_member==3
 
-replace SN_hhid = "1112645" if inlist(hhid,"11126410","1112646","1112643",) & sn_member==5
-***THIS ONE HAS DUPLICATE HHIDs for sn_hhid 4 and 5 !!!!
+replace SN_hhid = "1112645" if ward_id=="111264" & sn_member==5
 
 replace SN_hhid = "11126415" if inlist(hhid,"1112641") & sn_member==7
 
@@ -506,8 +516,8 @@ replace SN_hhid = "11126412" if inlist(hhid,"1112648","1112646") & sn_member==8
 replace SN_hhid = "1112648" if inlist(hhid,"11126412") & sn_member==9
 
 **UNSURE MATCH**
-replace SN_hhid = "1112649" & unsure_match = 1  if inlist(hhid,"11126414") & sn_member==9
-
+replace SN_hhid = "1112649" if inlist(hhid,"11126414") & sn_member==9
+replace unsure_match = 1  if inlist(hhid,"11126414") & sn_member==9
 ***************************************************
 **WARDID 111274**
 local WARDID 111274
@@ -535,7 +545,8 @@ replace SN_hhid = "1122146" if inlist(hhid,"1122144","1122142") & sn_member==6
 replace SN_hhid = "11221411" if inlist(hhid,"1122141") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "11221410" & unsure_match = 1 if inlist(hhid,"1122143") & sn_member==7
+replace SN_hhid = "11221410" if inlist(hhid,"1122143") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"1122143") & sn_member==7
 ****
 
 replace SN_hhid = "11221412" if inlist(hhid,"1122144") & sn_member==8
@@ -689,8 +700,10 @@ replace SN_hhid = "172815" if ward_id== "17281" & sn_member==5
 replace no_match = 1 if inlist(hhid,"172815","1728110","172813") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "172819" & unsure_match = 1  if inlist(hhid,"172819") & sn_member==7
-replace SN_hhid = "1728114" & unsure_match = 1  if inlist(hhid,"172815") & sn_member==7
+replace SN_hhid = "172819" if inlist(hhid,"172819") & sn_member==7
+replace unsure_match = 1  if inlist(hhid,"172819") & sn_member==7
+replace SN_hhid = "1728114" if inlist(hhid,"172815") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"172815") & sn_member==7
 ****
 
 replace SN_hhid = "1728114" if inlist(hhid,"172812","172814","1728114","1728110","172813"."1728115","1728113")
@@ -781,7 +794,8 @@ replace SN_hhid = "1829414" if inlist(hhid,"182943") & sn_member==7
 replace SN_hhid = "182947" if inlist(hhid,"1829410") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "182947" & unsure_match = 1  if inlist(hhid,"182946") & sn_member==8
+replace SN_hhid = "182947" if inlist(hhid,"182946") & sn_member==8
+replace unsure_match = 1  if inlist(hhid,"182946") & sn_member==8
 ****
 
 replace SN_hhid = "1829411" if inlist(hhid,"182941") & sn_member==8
@@ -809,7 +823,8 @@ replace SN_hhid = "191625" if ward_id== "19162" & sn_member==5
 replace SN_hhid = "191627" if inlist(hhid,"1916213") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "191629" & unsure_match = 1  if inlist(hhid,"191627","191628") & sn_member==9
+replace SN_hhid = "191629" if inlist(hhid,"191627","191628") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"191627","191628") & sn_member==9
 ****
 
 replace SN_hhid = "1916212" if inlist(hhid,"1916211") & sn_member==9
@@ -835,10 +850,17 @@ replace SN_hhid = "191784" if inlist(hhid,"191785","191782","1917810","191784") 
 replace SN_hhid = "191785" if ward_id== "19162" & sn_member==5
 
 **UNSURE MATCH**
-replace SN_hhid = "1917812" & unsure_match = 1  if inlist(hhid,"191782") & sn_member==7
-replace SN_hhid = "1917811" & unsure_match = 1  if inlist(hhid,"191782") & sn_member==8
-replace SN_hhid = "1917812" & unsure_match = 1  if inlist(hhid,"1917811") & sn_member==8
-replace SN_hhid = "1917811" & unsure_match = 1  if inlist(hhid,"191786") & sn_member==9
+replace SN_hhid = "1917812" if inlist(hhid,"191782") & sn_member==7
+replace unsure_match = 1  if inlist(hhid,"191782") & sn_member==7
+
+replace SN_hhid = "1917811" if inlist(hhid,"191782") & sn_member==8
+replace unsure_match = 1  if inlist(hhid,"191782") & sn_member==8
+
+replace SN_hhid = "1917812" & unsure_match = 1 if inlist(hhid,"1917811") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"1917811") & sn_member==8
+
+replace SN_hhid = "1917811" & unsure_match = 1 if inlist(hhid,"191786") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"191786") & sn_member==9
 ****
 
 replace SN_hhid = "191787" if inlist(hhid,"191783") & sn_member==7
@@ -868,11 +890,24 @@ replace SN_hhid = "191996" if ward_id== "19199" & sn_member==6
 replace SN_hhid = "191996" if ward_id== "19199" & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "1919914" & unsure_match = 1 if inlist(hhid,"191992","191996","1919912","191994") & sn_member==7
-replace SN_hhid = "1919914" & unsure_match = 1  if inlist(hhid,"191997","191991","191993") & sn_member==8 
-replace SN_hhid = "191999" & unsure_match = 1  if inlist(hhid,"1919915","191996") & sn_member==8
-replace SN_hhid = "191999" & unsure_match = 1 if inlist(hhid,"191998") & sn_member==9
-replace SN_hhid = "1919914" & unsure_match = 1  if inlist(hhid,"1919912","191994") & sn_member==9
+replace SN_hhid = "1919914" if inlist(hhid,"191992","191996","1919912","191994") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"191992","191996","1919912","191994") & sn_member==7
+
+replace SN_hhid = "1919914" if inlist(hhid,"191997","191991","191993") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"191997","191991","191993") & sn_member==8 
+
+ 
+replace SN_hhid = "191999" if inlist(hhid,"1919915","191996") & sn_member==8
+replace unsure_match = 1  if inlist(hhid,"1919915","191996") & sn_member==8
+
+
+replace SN_hhid = "191999" if inlist(hhid,"191998") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"191998") & sn_member==9
+
+
+replace SN_hhid = "1919914" if inlist(hhid,"1919912","191994") & sn_member==9
+replace unsure_match = 1  if inlist(hhid,"1919912","191994") & sn_member==9
+
 ****
 
 replace SN_hhid = "1919913" if inlist(hhid,"1919913") & sn_member==8
@@ -1084,7 +1119,9 @@ replace SN_hhid = "2164121" if inlist(hhid,"21641213") & sn_member==1
 replace SN_hhid = "2164123" if inlist(hhid,"21641212") & sn_member==3
 
 **UNSURE MATCH**
-replace SN_hhid = "2164123" & unsure_match = 1  if inlist(hhid,"2164126") & sn_member==3
+replace SN_hhid = "2164123" if inlist(hhid,"2164126") & sn_member==3
+replace unsure_match = 1  if inlist(hhid,"2164126") & sn_member==3
+
 ****
 
 replace SN_hhid = "21641211" if ward_id== "216412" & sn_member==5
@@ -1254,8 +1291,11 @@ sort sn_member
 replace SN_hhid = "3215341" if inlist(hhid,"3215345","3215346","3215344") & sn_member==1
 
 **UNSURE MATCH**
-replace SN_hhid = "3215342" & unsure_match = 1  if inlist(hhid,"3215345","32153412","32153413","32153410") & sn_member==3
-replace SN_hhid = "3215343" & unsure_match = 1  if inlist(hhid,"32153414") & sn_member==3
+replace SN_hhid = "3215342" if inlist(hhid,"3215345","32153412","32153413","32153410") & sn_member==3
+replace unsure_match = 1  if inlist(hhid,"3215345","32153412","32153413","32153410") & sn_member==3
+
+replace SN_hhid = "3215343" if inlist(hhid,"32153414") & sn_member==3
+replace unsure_match = 1 if inlist(hhid,"32153414") & sn_member==3
 ****
 
 replace SN_hhid = "3215344" if ward_id== "321534" & sn_member==4
@@ -1303,7 +1343,9 @@ replace SN_hhid = "3234982" if inlist(hhid,"3234986") & sn_member==2
 replace SN_hhid = "3234983" if inlist(hhid,"3234989") & sn_member==3
 
 **UNSURE MATCH**
-replace SN_hhid = "3234987" & unsure_match = 1  if inlist(hhid,"32349810","32349811") & sn_member==7
+replace SN_hhid = "3234987" if inlist(hhid,"32349810","32349811") & sn_member==7
+replace unsure_match = 1  if inlist(hhid,"32349810","32349811") & sn_member==7
+
 ****
 
 replace SN_hhid = "3234988" if inlist(hhid,"3234982") & sn_member==8
@@ -1353,7 +1395,9 @@ replace SN_hhid = "4256035" if ward_id== "425603" & sn_member==5
 replace no_match = 1 if ward_id== "425603" & sn_member==6
 
 **UNSURE MATCH**
-replace SN_hhid = "4256038" & unsure_match = 1  if m00_ == "BHOJ BAHADUR CHAND"
+replace SN_hhid = "4256038" if m00_ == "BHOJ BAHADUR CHAND"
+replace unsure_match = 1 if m00_ == "BHOJ BAHADUR CHAND"
+
 ****
 
 replace SN_hhid = "4256039" if inlist(hhid,"4256033") & sn_member==9
@@ -1369,8 +1413,12 @@ replace SN_hhid = "4256642" if inlist(hhid,"42566415") & sn_member==2
 replace SN_hhid = "4256643" if inlist(hhid,"42566414","4256646") & sn_member==3
 
 **UNSURE MATCH**
-replace SN_hhid = "4256646" & unsure_match = 1  if inlist(hhid,"4256647") & sn_member==6
-replace SN_hhid = "4256647" & unsure_match = 1  if inlist(hhid,"4256643","42566415") & sn_member==7
+replace SN_hhid = "4256646" if inlist(hhid,"4256647") & sn_member==6
+replace unsure_match = 1  if inlist(hhid,"4256647") & sn_member==6
+
+replace SN_hhid = "4256647" if inlist(hhid,"4256643","42566415") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"4256643","42566415") & sn_member==7
+
 ****
 
 replace SN_hhid = "4256647" if inlist(hhid,"4256646") & sn_member==7
@@ -1390,8 +1438,11 @@ replace SN_hhid = "4257482" if inlist(hhid,"4257481","4257482") & sn_member==2
 replace SN_hhid = "4257484" if inlist(hhid,"4257489") & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "4257486" & unsure_match = 1  if inlist(hhid,"4257482","4257485","4257487","42574812","42574811","4257483","4257484","42574810") & sn_member==6
-replace SN_hhid = "4257488" & unsure_match = 1  if inlist(hhid,"4257484") & sn_member==8
+replace SN_hhid = "4257486" if inlist(hhid,"4257482","4257485","4257487","42574812","42574811","4257483","4257484","42574810") & sn_member==6
+replace unsure_match = 1 if inlist(hhid,"4257482","4257485","4257487","42574812","42574811","4257483","4257484","42574810") & sn_member==6
+
+replace SN_hhid = "4257488" if inlist(hhid,"4257484") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"4257484") & sn_member==8
 
 ***************************************************   
 **WARDID  426617**
@@ -1504,7 +1555,9 @@ replace SN_hhid = "4276966" if inlist(hhid,"4276963","42769614","4276965","42769
 replace SN_hhid = "4276963" if inlist(hhid,"4276967","4276964") & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "4276968" & unsure_match = 1  if inlist(hhid,"42769614") & sn_member==7
+replace SN_hhid = "4276968" if inlist(hhid,"42769614") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"42769614") & sn_member==7
+
 ****
 
 ***************************************************   
@@ -1566,7 +1619,9 @@ replace SN_hhid = "4286573" if inlist(hhid,"4286574") & sn_member==3
 replace no_match = 1  if m00_ == "KUSUM KHANAL" or m00_ == "KUSUMA KHANAL" & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "4286576" & unsure_match = 1  if inlist(hhid,"42865712","42865713","4286579","4286578") & sn_member==6
+replace SN_hhid = "4286576" if inlist(hhid,"42865712","42865713","4286579","4286578") & sn_member==6
+replace unsure_match = 1  if inlist(hhid,"42865712","42865713","4286579","4286578") & sn_member==6
+
 ****
 
 replace SN_hhid = "4286577" if inlist(hhid,"4286571") & sn_member==7
@@ -1616,9 +1671,15 @@ sort sn_member
 replace no_match = 1 if inlist(hhid,"4296449","4296442") & sn_member==1
 
 **UNSURE MATCH**
-replace SN_hhid = "4296442" & unsure_match = 1  if inlist(hhid,"4296448") & sn_member==2
-replace SN_hhid = "4296444" & unsure_match = 1  if inlist(hhid,"4296448") & sn_member==4
-replace SN_hhid = "4296445" & unsure_match = 1  if inlist(hhid,"4296442") & sn_member==5
+replace SN_hhid = "4296442" if inlist(hhid,"4296448") & sn_member==2
+replace unsure_match = 1 if inlist(hhid,"4296448") & sn_member==2
+
+replace SN_hhid = "4296444" if inlist(hhid,"4296448") & sn_member==4
+replace unsure_match = 1  if inlist(hhid,"4296448") & sn_member==4
+
+replace SN_hhid = "4296445" if inlist(hhid,"4296442") & sn_member==5
+replace unsure_match = 1  if inlist(hhid,"4296442") & sn_member==5
+
 ****
 
 replace SN_hhid = "4296448" if inlist(hhid,"4296447") & sn_member==8
@@ -1802,7 +1863,9 @@ replace SN_hhid = "53279214" if inlist(hhid,"5327923","5327922","5327926","53279
 replace SN_hhid = "53279213" if inlist(hhid,"5327924","5327921") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "53279213" & unsure_match = 1  if inlist(hhid,"5327923") & sn_member==9
+replace SN_hhid = "53279213" if inlist(hhid,"5327923") & sn_member==9
+replace unsure_match = 1  if inlist(hhid,"5327923") & sn_member==9
+
 ****
 
 replace SN_hhid = "5327922" if inlist(hhid,"5327923") & sn_member==9 
@@ -1864,7 +1927,9 @@ replace SN_hhid = "5338182" if ward_id== "533818" & sn_member==2
 replace SN_hhid = "5338183" if inlist(hhid,"53381814","53381813","5338187") & sn_member==3
 
 **UNSURE MATCH**
-replace SN_hhid = "5338183" & unsure_match = 1  if inlist(hhid,"5338188","5338185","5338181","5338189","53381811","53381812","53381815","53381810") & sn_member==3
+replace SN_hhid = "5338183" if inlist(hhid,"5338188","5338185","5338181","5338189","53381811","53381812","53381815","53381810") & sn_member==3
+replace unsure_match = 1 if inlist(hhid,"5338188","5338185","5338181","5338189","53381811","53381812","53381815","53381810") & sn_member==3
+
 ****
 
 replace SN_hhid = "5338184" if inlist(hhid,"53381814") & sn_member==4
@@ -1938,7 +2003,9 @@ replace SN_hhid = "5348221" if ward_id== "534822" & sn_member==1
 replace SN_hhid = "5348222" if inlist(hhid,"53482215","53482211","5348224","5348221","53482213","53482214","5348229","53482210","5348225") & sn_member==2
 
 **UNSURE MATCH**
-replace SN_hhid = "5348222" & unsure_match = 1  if inlist(hhid,"5348228","5348228") & sn_member==2
+replace SN_hhid = "5348222" if inlist(hhid,"5348228","5348228") & sn_member==2
+replace unsure_match = 1 if inlist(hhid,"5348228","5348228") & sn_member==2
+
 ****
 
 replace SN_hhid = "5348223" if inlist(hhid,"5348222","5348223","5348221") & sn_member==3
@@ -2068,7 +2135,8 @@ replace SN_hhid = "5358457" if inlist(hhid,"53584515") & sn_member==7
 replace SN_hhid = "5358458" if inlist(hhid,"53584515") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "5358459" & unsure_match = 1  if inlist(hhid,"53584511","5358454") & sn_member==9
+replace SN_hhid = "5358459" if inlist(hhid,"53584511","5358454") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"53584511","5358454") & sn_member==9
 
 ***************************************************   
 **WARDID 535896**
@@ -2083,7 +2151,9 @@ replace SN_hhid = "5358963" if inlist(hhid,"53589615","5358964","5358962") & sn_
 replace SN_hhid = "5358964" if inlist(hhid,"53589615") & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "5358965" & unsure_match = 1  if inlist(hhid,"53589615") & sn_member==5
+replace SN_hhid = "5358965" if inlist(hhid,"53589615") & sn_member==5
+replace unsure_match = 1 if inlist(hhid,"53589615") & sn_member==5
+
 ****
 
 replace SN_hhid = "5358967" if inlist(hhid,"53589614","5358961","5358967") & sn_member==7
@@ -2239,7 +2309,9 @@ replace SN_hhid = "63810591" if inlist(hhid,"638105912","63810599","638105913","
 replace SN_hhid = "63810592" if inlist(hhid,"638105913") & sn_member==2
 
 **UNSURE MATCH**
-replace SN_hhid = "63810594" & unsure_match = 1  if inlist(hhid,"638105914","638105911","638105915") & sn_member==4
+replace SN_hhid = "63810594" if inlist(hhid,"638105914","638105911","638105915") & sn_member==4
+replace unsure_match = 1 if inlist(hhid,"638105914","638105911","638105915") & sn_member==4
+
 ****
 
 replace SN_hhid = "63810596" if inlist(hhid,"63810597","63810595","638105915","63810598") & sn_member==6
@@ -2247,7 +2319,9 @@ replace SN_hhid = "63810596" if inlist(hhid,"63810597","63810595","638105915","6
 replace SN_hhid = "638105915" if inlist(hhid,"638105912") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "638105915" & unsure_match = 1  if inlist(hhid,"638105910") & sn_member==8
+replace SN_hhid = "638105915" if inlist(hhid,"638105910") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"638105910") & sn_member==8
+
 ****
 
 replace SN_hhid = "63810592" if inlist(hhid,"638105910") & sn_member==8
@@ -2277,7 +2351,9 @@ replace SN_hhid = "6389646" if inlist(hhid,"6389644") & sn_member==5
 replace SN_hhid = "6389646" if inlist(hhid,"6389646") & sn_member==6
 
 **UNSURE MATCH**
-replace SN_hhid = "6389647" & unsure_match = 1  if inlist(hhid,"6389643") & sn_member==7
+replace SN_hhid = "6389647" if inlist(hhid,"6389643") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"6389643") & sn_member==7
+
 ****
 
 replace SN_hhid = "6389647" if inlist(hhid,"63896412") & sn_member==7
@@ -2389,7 +2465,9 @@ replace SN_hhid = "64010286" if inlist(hhid,"64010284","64010287","64010283") & 
 replace SN_hhid = "64010288" if inlist(hhid,"640102812") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "64010288" & unsure_match = 1  if inlist(hhid,"640102813") & sn_member==9
+replace SN_hhid = "64010288" if inlist(hhid,"640102813") & sn_member==9
+replace unsure_match = 1  if inlist(hhid,"640102813") & sn_member==9
+
 ****
 
 replace SN_hhid = "64010288" if inlist(hhid,"64010287") & sn_member==9
@@ -2545,7 +2623,9 @@ replace SN_hhid = "64210311" if ward_id=="6421031" & sn_member==1
 replace SN_hhid = "64210312" if inlist(hhid,"642103114","642103113","64210319","64210314") & sn_member==2
 
 **UNSURE MATCH**
-replace SN_hhid = "64210312" & unsure_match = 1  if inlist(hhid,"642103110","642103111","64210316","64210315","642103112") & sn_member==2
+replace SN_hhid = "64210312" if inlist(hhid,"642103110","642103111","64210316","64210315","642103112") & sn_member==2
+replace unsure_match = 1 if inlist(hhid,"642103110","642103111","64210316","64210315","642103112") & sn_member==2
+
 ****
 
 replace SN_hhid = "64210313" if inlist(hhid,"642103114") & sn_member==3
@@ -2583,7 +2663,9 @@ replace SN_hhid = "64310924" if inlist(hhid,"643109210") & sn_member==4
 replace SN_hhid = "64310926" if ward_id=="6431092" & sn_member==6
 
 **UNSURE MATCH**
-replace SN_hhid = "64310927" & unsure_match = 1  if inlist(hhid,"64310923","643109211","643109210","643109212") & sn_member==7
+replace SN_hhid = "64310927" if inlist(hhid,"64310923","643109211","643109210","643109212") & sn_member==7
+replace unsure_match = 1  if inlist(hhid,"64310923","643109211","643109210","643109212") & sn_member==7
+
 ****
 
 replace SN_hhid = "643109215" if inlist(hhid,"643109214") & sn_member==7
@@ -2663,7 +2745,9 @@ replace SN_hhid = "74412051" if inlist(hhid,"74412056") & sn_member==1
 replace SN_hhid = "74412052" if inlist(hhid,"74412056","744120512","74412051","74412055","744120513","74412054") & sn_member==2
 
 **UNSURE MATCH**
-replace SN_hhid = "74412052" & unsure_match = 1 if inlist(hhid,"744120511") & sn_member==2
+replace SN_hhid = "74412052" if inlist(hhid,"744120511") & sn_member==2
+replace unsure_match = 1 if inlist(hhid,"744120511") & sn_member==2
+
 ****
 
 replace SN_hhid = "74412053" if ward_id=="7441205" & sn_member==3
@@ -2675,9 +2759,15 @@ replace SN_hhid = "74412055" if inlist(hhid,"74412054") & sn_member==5
 replace SN_hhid = "744120511" if inlist(hhid,"744120512") & sn_member==5
 
 **UNSURE MATCH**
-replace SN_hhid = "74412054" & unsure_match = 1 if inlist(hhid,"74412057","74412058") & sn_member==5
-replace SN_hhid = "74412055" & unsure_match = 1 if inlist(hhid,"744120510") & sn_member==4
-replace SN_hhid = "74412055" & unsure_match = 1 if inlist(hhid,"74412056","744120512") & sn_member==5
+replace SN_hhid = "74412054" if inlist(hhid,"74412057","74412058") & sn_member==5
+replace unsure_match = 1 if inlist(hhid,"74412057","74412058") & sn_member==5
+
+replace SN_hhid = "74412055" if inlist(hhid,"744120510") & sn_member==4
+replace unsure_match = 1 if inlist(hhid,"744120510") & sn_member==4
+
+replace SN_hhid = "74412055" if inlist(hhid,"74412056","744120512") & sn_member==5
+replace unsure_match = 1 if inlist(hhid,"74412056","744120512") & sn_member==5
+
 ****
 
 replace SN_hhid = "74412056" if inlist(hhid,"74412053","74412052") & sn_member==6
@@ -2741,7 +2831,9 @@ replace no_match = 1 if inlist(hhid,"745112410","74511244","745112415") & sn_mem
 replace SN_hhid = "74511247" if inlist(hhid,"74511244","745112410","745112413","745112415","745112412","745112414","745112411","74511243") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "74511242" & unsure_match = 1 if inlist(hhid,"74511248") & sn_member==7
+replace SN_hhid = "74511242" if inlist(hhid,"74511248") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"74511248") & sn_member==7
+
 ****
 
 replace SN_hhid = "74511248" if ward_id=="7451124" & sn_member==8
@@ -2763,7 +2855,9 @@ replace SN_hhid = "74511243" if inlist(hhid,"74511246") & sn_member==3
 replace SN_hhid = "74511244" if inlist(hhid,"745112413","745112415","74511248","74511247","745112410","745112412") & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "74511244" & unsure_match = 1 if inlist(hhid,"74511244","74511246","745112414") & sn_member==4
+replace SN_hhid = "74511244" if inlist(hhid,"74511244","74511246","745112414") & sn_member==4
+replace unsure_match = 1 if inlist(hhid,"74511244","74511246","745112414") & sn_member==4
+
 ****
 
 replace SN_hhid = "74511246" if ward_id=="7451124" & sn_member==6
@@ -2815,8 +2909,12 @@ replace SN_hhid = "74611397" if inlist(hhid,"74611396") & sn_member==7
 replace SN_hhid = "74611398" if inlist(hhid,"74611399","74611391","74611392","74611394") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "746113911" & unsure_match = 1 if inlist(hhid,"746113913",") & sn_member==8
-replace SN_hhid = "746113911" & unsure_match = 1 if inlist(hhid,"746113912",") & sn_member==9
+replace SN_hhid = "746113911" if inlist(hhid,"746113913",") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"746113913",") & sn_member==8
+
+replace SN_hhid = "746113911" if inlist(hhid,"746113912",") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"746113912",") & sn_member==9
+
 ****
 
 replace SN_hhid = "74611399" if inlist(hhid,"74611395","74611393","74611394","74611396","74611391","74611399","74611392","74611397") & sn_member==9
@@ -3046,8 +3144,12 @@ replace SN_hhid = "85013646" if inlist(hhid,"850136410") & sn_member==5
 replace SN_hhid = "85013646" if  ward_id=="8501364" & sn_member==6
 
 **UNSURE MATCH**
-replace SN_hhid = "850136411" & unsure_match = 1 if inlist(hhid,"85013642","85013643","850136415") & sn_member==7
-replace SN_hhid = "850136411" & unsure_match = 1 if inlist(hhid,"85013645") & sn_member==8
+replace SN_hhid = "850136411" if inlist(hhid,"85013642","85013643","850136415") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"85013642","85013643","850136415") & sn_member==7
+
+replace SN_hhid = "850136411" if inlist(hhid,"85013645") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"85013645") & sn_member==8
+
 ****
 replace SN_hhid = "85013645" if inlist(hhid,"850136410") & sn_member==8
 
@@ -3058,7 +3160,9 @@ replace SN_hhid = "85013647" if inlist(hhid,"850136415") & sn_member==9
 replace SN_hhid = "850136413" if inlist(hhid,"850136414","850136412") & sn_member==9
 
 **UNSURE MATCH**
-replace SN_hhid = "85013649" & unsure_match = 1 if inlist(hhid,"85013644") & sn_member==9
+replace SN_hhid = "85013649" if inlist(hhid,"85013644") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"85013644") & sn_member==9
+
 ****
 
 ***************************************************   
@@ -3156,7 +3260,9 @@ sort sn_member
 replace SN_hhid = "85313034" if ward_id=="8531303" & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "853130310" & unsure_match = 1 if inlist(hhid,"853130314") & sn_member==7
+replace SN_hhid = "853130310" if inlist(hhid,"853130314") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"853130314") & sn_member==7
+
 ****
 
 replace SN_hhid = "853130315" if inlist(hhid,"853130313") & sn_member==9
@@ -3170,7 +3276,9 @@ sort sn_member
 replace SN_hhid = "85313084" if ward_id=="8531308" & sn_member==4
 
 **UNSURE MATCH**
-replace SN_hhid = "85313085" & unsure_match = 1 if inlist(hhid,"85313089") & sn_member==5
+replace SN_hhid = "85313085" if inlist(hhid,"85313089") & sn_member==5
+replace unsure_match = 1 if inlist(hhid,"85313089") & sn_member==5
+
 ****
 
 replace no_match = 1 if ward_id=="8531308" & sn_member==7
@@ -3194,7 +3302,9 @@ replace SN_hhid = "85313241" if ward_id=="8531324" & sn_member==1
 replace SN_hhid = "85313242" if inlist(hhid,"85313241") & sn_member==2
 
 **UNSURE MATCH**
-replace SN_hhid = "85313243" & unsure_match = 1 if inlist(hhid,"85313248") & sn_member==2
+replace SN_hhid = "85313243" if inlist(hhid,"85313248") & sn_member==2
+replace unsure_match = 1 if inlist(hhid,"85313248") & sn_member==2
+
 ****
 
 replace SN_hhid = "85313245" if ward_id=="8531324" & sn_member==5
@@ -3350,7 +3460,9 @@ replace SN_hhid = "95514795" if ward_id=="9551479" & sn_member==5
 replace no_match = 1 if inlist(hhid,"955147913") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "955147911" & unsure_match = 1 if inlist(hhid,"95514794","955147910") & sn_member==8
+replace SN_hhid = "955147911" if inlist(hhid,"95514794","955147910") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"95514794","955147910") & sn_member==8
+
 ****
 
 replace SN_hhid = "955147913" if inlist(hhid,"955147913") & sn_member==8
@@ -3390,7 +3502,9 @@ replace SN_hhid = "95713924" if ward_id=="9571392" & sn_member==4
 replace SN_hhid = "95713925" if ward_id=="9571392" & sn_member==5
 
 **UNSURE MATCH**
-replace SN_hhid = "95713928" & unsure_match = 1 if inlist(hhid,"95713928") & sn_member==8
+replace SN_hhid = "95713928" if inlist(hhid,"95713928") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"95713928") & sn_member==8
+
 ****
 
 replace SN_hhid = "957139211" if inlist(hhid,"957139211") & sn_member==8
@@ -3440,9 +3554,15 @@ replace SN_hhid = "95914145" if ward_id=="9591414" & sn_member==5
 replace SN_hhid = "95914146" if ward_id=="9591414" & sn_member==6
 
 **UNSURE MATCH**
-replace SN_hhid = "95914147" & unsure_match = 1 if inlist(hhid,"95914144","95914149","95914141") & sn_member==7
-replace SN_hhid = "95914147" & unsure_match = 1 if inlist(hhid,"959141411") & sn_member==9
-replace SN_hhid = "95914149" & unsure_match = 1 if inlist(hhid,"95914142","95914148","95914147") & sn_member==7
+replace SN_hhid = "95914147" if inlist(hhid,"95914144","95914149","95914141") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"95914144","95914149","95914141") & sn_member==7
+
+replace SN_hhid = "95914147" if inlist(hhid,"959141411") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"959141411") & sn_member==9
+
+replace SN_hhid = "95914149" if inlist(hhid,"95914142","95914148","95914147") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"95914142","95914148","95914147") & sn_member==7
+
 ****
 
 replace SN_hhid = "959141413" if inlist(hhid,"959141414","959141410") & sn_member==7
@@ -3454,7 +3574,9 @@ replace SN_hhid = "959141414" if inlist(hhid,"959141412") & sn_member==9
 replace SN_hhid = "95914148" if inlist(hhid,"95914147") & sn_member==9
 
 **UNSURE MATCH**
-replace SN_hhid = "95914149" & unsure_match = 1 if inlist(hhid,"959141411") & sn_member==9
+replace SN_hhid = "95914149" if inlist(hhid,"959141411") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"959141411") & sn_member==9
+
 ****
 
 ***************************************************   
@@ -3474,8 +3596,12 @@ replace SN_hhid = "95914167" if inlist(hhid,"95914166") & sn_member==7
 replace SN_hhid = "95914167" if inlist(hhid,"95914167","95914168") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "959141612" & unsure_match = 1 if inlist(hhid,"959141612",") & sn_member==7
-replace SN_hhid = "959141612" & unsure_match = 1 if inlist(hhid,"959141613",") & sn_member==8
+replace SN_hhid = "959141612" if inlist(hhid,"959141612",") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"959141612",") & sn_member==7
+
+replace SN_hhid = "959141612" if inlist(hhid,"959141613",") & sn_member==8
+replace unsure_match = 1 if inlist(hhid,"959141613",") & sn_member==8
+
 ****
 
 replace SN_hhid = "959141612" if inlist(hhid,"95914163","95914162") & sn_member==8
@@ -3587,7 +3713,9 @@ replace SN_hhid = "96014516" if ward_id=="9601451" & sn_member==6
 replace no_match = 1 if nlist(hhid,"96014516","960145113","96014515",") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "960145111" & unsure_match = 1 if inlist(hhid,"960145112") & sn_member==7
+replace SN_hhid = "960145111" if inlist(hhid,"960145112") & sn_member==7
+replace unsure_match = 1 if inlist(hhid,"960145112") & sn_member==7
+
 ****
 
 replace SN_hhid = "960145113" if inlist(hhid,"960145113","96014515","96014516") & sn_member==7
@@ -3731,7 +3859,9 @@ replace no_match = 1 if inlist(hhid,"962146710") & sn_member==8
 replace SN_hhid = "962146710" if inlist(hhid,"96214679") & sn_member==8
 
 **UNSURE MATCH**
-replace SN_hhid = "96214678" & unsure_match = 1 if inlist(hhid,"96214675","96214677") & sn_member==9
+replace SN_hhid = "96214678" if inlist(hhid,"96214675","96214677") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"96214675","96214677") & sn_member==9
+
 ****
 
 replace SN_hhid = "962146714" if inlist(hhid,"962146710","96214672","96214676","962146715") & sn_member==9
@@ -3755,7 +3885,9 @@ replace SN_hhid = "96314946" if ward_id=="9631494" & sn_member==6
 replace SN_hhid = "96314947" if inlist(hhid,"96314943") & sn_member==7
 
 **UNSURE MATCH**
-replace SN_hhid = "963149411" & unsure_match = 1 if inlist(hhid,"96314943") & sn_member==9
+replace SN_hhid = "963149411" if inlist(hhid,"96314943") & sn_member==9
+replace unsure_match = 1 if inlist(hhid,"96314943") & sn_member==9
+
 ****
 
 
