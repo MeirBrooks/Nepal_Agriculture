@@ -7,16 +7,21 @@ cap log close
 
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
-	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA	
-	use "/Users/sampadakc/Desktop/Thesis/agriculture/Nepal_Data.dta"
-
+	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA
+	local DB "/Users/sampadakc/Dropbox" // UPDATE TO YOUR DROPBOX DIRECTORY
+	}
+	
 	if "`c(username)'"=="dwolfson"{
 	local GITHUBDIR "Y:/Nepal_Agriculture"
-	use "W:/Dropbox/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta"
+	local DB "X:"
 	}
+	
 	
 	log using "`GITHUBDIR'/logs/baseline_sn_analysis/NPL_SN_Analysis", smcl replace
 	di "Ran by `c(username)'"
+	
+	use "`DB'/Agriculture Extension Worker Project/Analysis/data/Baseline-2014-10-20.dta"
+
 	
 /*****************************************************************
 PROJECT: 	NEPAL AGRICULTURE - ICIMOD
@@ -42,10 +47,6 @@ la var hhid "Household ID"
 la var ward_id "Dist/ASC/VDC/Ward ID"
 tempfile BASELINE
 save `BASELINE'
-
-
-
-
 
 *************************************************
 * STEP 1: CLEAN/RESHAPE SECTION M (SN DATA)		*
@@ -114,7 +115,7 @@ gen ID = _n // GEN ID FOR RECLINK
 
 reclink ward_id m00_ using `SN_HHID', idu(SN_hhid) idm(ID) gen(match) req(ward_id)
 	
-keep hhid ward_id m00_ Um00_ SN_hhid _merge match sn_member
+keep hhid ward_id m00_ Um00_ SN_hhid _merge match sn_member m01
 order hhid ward_id sn_member SN_hhid m00_  Um00_ _merge match
 
 *************************************************
@@ -122,3 +123,17 @@ order hhid ward_id sn_member SN_hhid m00_  Um00_ _merge match
 *************************************************
 
 include "`GITHUBDIR'/code/baseline_sn_analysis/01_SN_Manual_Matching.do"
+
+*************************************************
+* STEP 4: ADDITIONAL PROCESSING AND LABELING	*
+*************************************************
+
+destring hhid SN_hhid ward_id, replace
+drop m00_ Um00_
+
+
+*************************************************
+* STEP 5: SAVE									*
+*************************************************
+
+save "`DB'/Agriculture Extension Worker Project/Analysis/data/SN_Data.dta", replace
