@@ -26,16 +26,11 @@ clear all
 * STEP 3: DATA ANALYSIS CREATING AN EDGE LIST	*
 *************************************************
 
-/**NOTES FOR S:
-USEFUL COMMANDS:
-levelsof 
 
-levelsof ward, local(WARDS)
+levelsof ward_id, local(WARDS)
 foreach WID of local WARDS{
 	di "`WID'"
 }
-*/
-
 *OUTDEGREE*
 	preserve
 	//CREATE OUTDEGREE DENOMINATOR
@@ -43,6 +38,7 @@ foreach WID of local WARDS{
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid // REMOVING PARALLEL EDGES
 	duplicates drop hhid SN_hhid, force // REMOVING SELF-LOOPS
+	
 	bys hhid: egen outdegree_denom=count(SN_hhid)
 	la var outdegree_denom "Baseline Outdegree Denominator"
 	note outdegree_denom: Number of households that we asked HHID if they know
@@ -65,10 +61,13 @@ foreach WID of local WARDS{
 	//COMPUTE INDEGREE DENOMINATOR
 	keep if ward_id == 0111
 	drop if SN_hhid==.
-	drop if SN_hhid == hhid // REMOVING PARALLEL EDGES
-	duplicates drop hhid SN_hhid, force // REMOVING SELF-LOOPS
+	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
+	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES 
 	
-	**SAMPADA ENTER CODE HERE
+	duplicates tag SN_hhid, gen(denom)
+	replace denom=denom+1
+	la var denom "Baseline Indegree Denominator"
+	note denom: Number that know the households
 	
 	//COMPUTE INDEGREE
 	gen SN_hhid2 = SN_hhid if m01==01
@@ -76,7 +75,7 @@ foreach WID of local WARDS{
 	duplicates tag SN_hhid2, gen(indegree)
 	replace indegree=indegree+1
 	la var indegree "Baseline Indegree"
-	keep SN_hhid2 indegree
+	keep SN_hhid2 denom indegree
 	rename SN_hhid2 hhid
 	la var hhid "HHID" 
 	duplicates drop hhid, force
@@ -89,17 +88,21 @@ foreach WID of local WARDS{
 	preserve
 	keep if ward_id == 0111
 	drop if SN_hhid==.
-	drop if SN_hhid == hhid // REMOVING PARALLEL EDGES
-	duplicates drop hhid SN_hhid, force // REMOVING SELF-LOOPS
+	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
+	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES
 	
 	//COMPUTE TOTAL DEGREE DENOMINATOR
-	**SAMPADA ENTER CODE HERE
+	netsis hhid SN_hhid, measure(adjacency) name(A,replace)
+	netsummarize A, generate(degree) statistic(rowsum)
+	rename degree_source total_denom_degree
+	la var total_denom_degree "Total Denominator Degree"
+	duplicates drop 
 	
 	//COMPUTE TOTAL DEGREE
 	gen SN_hhid2 = SN_hhid if m01==01
 	drop if SN_hhid2 == . 
-	netsis hhid SN_hhid2, measure(adjacency) name(A,replace)
-	netsummarize A, generate(degree) statistic(rowsum)
+	netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
+	netsummarize B, generate(degree) statistic(rowsum)
 	keep hhid degree_source
 	rename degree_source total_degree
 	la var total_degree "Total Degree"
