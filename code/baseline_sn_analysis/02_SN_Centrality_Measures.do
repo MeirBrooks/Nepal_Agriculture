@@ -27,14 +27,13 @@ clear all
 *************************************************
 
 
-levelsof ward_id, local(WARDS)
+levelsof ward_id,local(WARDS)
 foreach WID of local WARDS{
-	di "`WID'"
-}
+
 *OUTDEGREE*
 	preserve
 	//CREATE OUTDEGREE DENOMINATOR
-	keep if ward_id == 0111
+	keep if ward_id = `WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid // REMOVING PARALLEL EDGES
 	duplicates drop hhid SN_hhid, force // REMOVING SELF-LOOPS
@@ -55,11 +54,10 @@ foreach WID of local WARDS{
 	save `O'
 	restore
 
-
 *INDEGREE*
 	preserve
 	//COMPUTE INDEGREE DENOMINATOR
-	keep if ward_id == 0111
+	keep if ward_id =`WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES 
@@ -86,7 +84,7 @@ foreach WID of local WARDS{
 	
 *TOTAL DEGREE*
 	preserve
-	keep if ward_id == 0111
+	keep if ward_id =`WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES
@@ -97,6 +95,8 @@ foreach WID of local WARDS{
 	rename degree_source total_denom_degree
 	la var total_denom_degree "Total Denominator Degree"
 	duplicates drop 
+	
+	drop degree_target
 	
 	//COMPUTE TOTAL DEGREE
 	gen SN_hhid2 = SN_hhid if m01==01
@@ -110,9 +110,14 @@ foreach WID of local WARDS{
 	tempfile T
 	save `T'
 	restore
+gen sample = `WID'
+	if(`WID' =111){
+   save sample, replace
+ }
+ else{
+    append using sample
+    save sample, replace
+ }
 	
+}	
 	
-	
-	
-
-
