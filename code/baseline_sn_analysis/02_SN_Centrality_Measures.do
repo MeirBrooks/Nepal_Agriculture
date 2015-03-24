@@ -29,11 +29,20 @@ clear all
 
 levelsof ward_id,local(WARDS)
 foreach WID of local WARDS{
-
+	
+	preserve
+	keep if ward_id == `WID'
+	duplicates drop hhid, force
+	sort hhid
+	keep ward_id hhid
+	tempfile temp_head
+	save "`temp_head'"
+	restore
+	
 *OUTDEGREE*
 	preserve
 	//CREATE OUTDEGREE DENOMINATOR
-	keep if ward_id = `WID'
+	keep if ward_id ==`WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid // REMOVING PARALLEL EDGES
 	duplicates drop hhid SN_hhid, force // REMOVING SELF-LOOPS
@@ -48,16 +57,17 @@ foreach WID of local WARDS{
 	
 	bys hhid : egen outdegree=count(SN_hhid2)
 	la var outdegree "Baseline Outdegree"
+	duplicates drop hhid, force
 	keep hhid outdegree*
-	duplicates drop
-	tempfile O
-	save `O'
+	sort hhid
+	tempfile temp_outd
+	save "`temp_outd'"
 	restore
 
 *INDEGREE*
 	preserve
 	//COMPUTE INDEGREE DENOMINATOR
-	keep if ward_id =`WID'
+	keep if ward_id== `WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES 
@@ -70,54 +80,66 @@ foreach WID of local WARDS{
 	//COMPUTE INDEGREE
 	gen SN_hhid2 = SN_hhid if m01==01
 	drop if SN_hhid2 == . 
-	duplicates tag SN_hhid2, gen(indegree)
+	duplicates tag SN_hhid2 , gen(indegree)
 	replace indegree=indegree+1
 	la var indegree "Baseline Indegree"
-	keep SN_hhid2 denom indegree
-	rename SN_hhid2 hhid
-	la var hhid "HHID" 
+	keep SN_hhid denom indegree
+	rename SN_hhid hhid
+	la var hhid "HHID"
 	duplicates drop hhid, force
-	tempfile I
-	save `I'
+	sort hhid
+	tempfile temp_ind
+	save "`temp_ind'"
 	restore
 
 	
 *TOTAL DEGREE*
 	preserve
-	keep if ward_id =`WID'
+	keep if ward_id ==`WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES
+	sort hhid
 	
 	//COMPUTE TOTAL DEGREE DENOMINATOR
 	netsis hhid SN_hhid, measure(adjacency) name(A,replace)
 	netsummarize A, generate(degree) statistic(rowsum)
 	rename degree_source total_denom_degree
 	la var total_denom_degree "Total Denominator Degree"
-	duplicates drop 
-	
 	drop degree_target
 	
 	//COMPUTE TOTAL DEGREE
 	gen SN_hhid2 = SN_hhid if m01==01
 	drop if SN_hhid2 == . 
 	netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
-	netsummarize B, generate(degree) statistic(rowsum)
-	keep hhid degree_source
+	netsummarize B , generate(degree) statistic(rowsum)
 	rename degree_source total_degree
 	la var total_degree "Total Degree"
-	duplicates drop 
-	tempfile T
-	save `T'
+	duplicates drop hhid, force
+	keep hhid total_degree total_denom_degree
+	sort hhid
+	tempfile temp_totald
+	save "`temp_totald'"
 	restore
-gen sample = `WID'
-	if(`WID' =111){
-   save sample, replace
- }
- else{
-    append using sample
-    save sample, replace
- }
 	
+	use "`temp_head'"
+	sort hhid
+	merge hhid using "`temp_outd'"
+	drop _merge
+	sort hhid
+	merge hhid using "`temp_ind'"
+	drop _merge
+	sort hhid
+	merge hhid using "`temp_totald'"
+	drop _merge
+	
+
+if(`WID'==111){
+   save centrality_measures.dta, replace
+ } 
+else{
+    append using centrality_measures.dta
+    save centrality_measures.dta, replace
+ }
 }	
 	
