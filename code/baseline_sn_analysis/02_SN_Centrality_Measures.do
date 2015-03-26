@@ -19,7 +19,8 @@ clear all
 	local DB X:	
 	}
 	
-	use "`DB'/Agriculture Extension Worker Project/Analysis/data/SN_data.dta", clear
+	local DATA "`DB'/Agriculture Extension Worker Project/Analysis/data/SN_data.dta"
+	use "`DATA'", clear
 
 
 *************************************************
@@ -30,17 +31,17 @@ clear all
 levelsof ward_id,local(WARDS)
 foreach WID of local WARDS{
 	
-	preserve
+	use "`DATA'", clear
 	keep if ward_id == `WID'
 	duplicates drop hhid, force
 	sort hhid
 	keep ward_id hhid
 	tempfile temp_head
 	save "`temp_head'"
-	restore
 	
 *OUTDEGREE*
-	preserve
+	di "OUTDEGREE - `WID'"
+	use "`DATA'", clear
 	//CREATE OUTDEGREE DENOMINATOR
 	keep if ward_id ==`WID'
 	drop if SN_hhid==.
@@ -52,7 +53,7 @@ foreach WID of local WARDS{
 	note outdegree_denom: Number of households that we asked HHID if they know
 	
 	//CREATE OUTDEGREE NUMERATOR
-	gen SN_hhid2 = SN_hhid if m01==01
+	gen long SN_hhid2 = SN_hhid if m01==01
 	drop if SN_hhid2 == . 
 	
 	bys hhid : egen outdegree=count(SN_hhid2)
@@ -62,11 +63,11 @@ foreach WID of local WARDS{
 	sort hhid
 	tempfile temp_outd
 	save "`temp_outd'"
-	restore
 
 *INDEGREE*
-	preserve
+	use "`DATA'", clear
 	//COMPUTE INDEGREE DENOMINATOR
+	di "INDEGREE - `WID'"
 	keep if ward_id== `WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
@@ -78,7 +79,7 @@ foreach WID of local WARDS{
 	note denom: Number that know the households
 	
 	//COMPUTE INDEGREE
-	gen SN_hhid2 = SN_hhid if m01==01
+	gen long SN_hhid2 = SN_hhid if m01==01
 	drop if SN_hhid2 == . 
 	duplicates tag SN_hhid2 , gen(indegree)
 	replace indegree=indegree+1
@@ -90,11 +91,9 @@ foreach WID of local WARDS{
 	sort hhid
 	tempfile temp_ind
 	save "`temp_ind'"
-	restore
-
 	
-*TOTAL DEGREE*
-	preserve
+*TOTAL DEGREE*	
+	use "`DATA'", clear
 	keep if ward_id ==`WID'
 	drop if SN_hhid==.
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
@@ -109,8 +108,9 @@ foreach WID of local WARDS{
 	drop degree_target
 	
 	//COMPUTE TOTAL DEGREE
-	gen SN_hhid2 = SN_hhid if m01==01
-	drop if SN_hhid2 == . 
+	di "TOTAL DEGREE"
+	gen long SN_hhid2 = SN_hhid if m01==01
+	drop if SN_hhid2 == .
 	netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
 	netsummarize B , generate(degree) statistic(rowsum)
 	rename degree_source total_degree
@@ -120,9 +120,8 @@ foreach WID of local WARDS{
 	sort hhid
 	tempfile temp_totald
 	save "`temp_totald'"
-	restore
 	
-	use "`temp_head'"
+	use "`temp_head'", clear
 	sort hhid
 	merge hhid using "`temp_outd'"
 	drop _merge
