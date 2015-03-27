@@ -121,6 +121,23 @@ foreach WID of local WARDS{
 	tempfile temp_totald
 	save "`temp_totald'"
 	
+*EIGENVALUE CENTRALITY*
+	use "`DATA'", clear
+	keep if ward_id ==`WID'
+	drop if SN_hhid==.
+	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
+	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES
+	sort hhid
+	
+	gen long SN_hhid2 = SN_hhid if m01==01
+	drop if SN_hhid2 == .
+	netsis hhid SN_hhid2, measure(eigenvector) name(EIGEN, replace)
+    netsummarize EIGEN, gen(E) s(rowsum)
+    tempfile EIGEN_`WID'
+    save `EIGEN_`WID'', replace
+	
+	this is a break
+	
 	use "`temp_head'", clear
 	sort hhid
 	merge hhid using "`temp_outd'"
@@ -129,9 +146,14 @@ foreach WID of local WARDS{
 	merge hhid using "`temp_ind'"
 	drop _merge
 	sort hhid
+	disp in red "1"
 	merge hhid using "`temp_totald'"
 	drop _merge
-	
+	sort hhid
+	disp in red "2"
+	merge hhid using "`EIGEN_`WID''"
+	drop _merge
+	disp in red "3"
 
 if(`WID'==111){
    save centrality_measures.dta, replace
