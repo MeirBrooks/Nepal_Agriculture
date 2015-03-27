@@ -8,6 +8,7 @@ AUTHORS: 	SAMPADA KC (YALE)
 NOTES: 		
 *******************************************************************/
 clear all
+set more off
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
 	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA
@@ -133,27 +134,30 @@ foreach WID of local WARDS{
 	drop if SN_hhid2 == .
 	netsis hhid SN_hhid2, measure(eigenvector) name(EIGEN, replace)
     netsummarize EIGEN, gen(E) s(rowsum)
+	drop _merge
+	keep hhid E_source
+	rename E_source e_score
+	la var e_score "Eigenvector Centrality Measure"
     tempfile EIGEN_`WID'
     save `EIGEN_`WID'', replace
-	
-	this is a break
-	
+		
 	use "`temp_head'", clear
 	sort hhid
 	merge hhid using "`temp_outd'"
 	drop _merge
 	sort hhid
+	
 	merge hhid using "`temp_ind'"
 	drop _merge
 	sort hhid
-	disp in red "1"
+
 	merge hhid using "`temp_totald'"
 	drop _merge
 	sort hhid
-	disp in red "2"
+
 	merge hhid using "`EIGEN_`WID''"
 	drop _merge
-	disp in red "3"
+
 
 if(`WID'==111){
    save centrality_measures.dta, replace
