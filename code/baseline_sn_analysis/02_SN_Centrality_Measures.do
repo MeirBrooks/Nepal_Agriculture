@@ -60,6 +60,7 @@ foreach WID of local WARDS{
 	bys hhid : egen outdegree=count(SN_hhid2)
 	la var outdegree "Baseline Outdegree"
 	duplicates drop hhid, force
+	gen outdegree_proportion= outdegree/outdegree_denom
 	keep hhid outdegree*
 	sort hhid
 	tempfile temp_outd
@@ -85,7 +86,8 @@ foreach WID of local WARDS{
 	duplicates tag SN_hhid2 , gen(indegree)
 	replace indegree=indegree+1
 	la var indegree "Baseline Indegree"
-	keep SN_hhid indegree_denom indegree
+	gen indegree_proportion= indegree/indegree_denom
+	keep SN_hhid indegree*
 	rename SN_hhid hhid
 	la var hhid "HHID"
 	duplicates drop hhid, force
@@ -117,7 +119,8 @@ foreach WID of local WARDS{
 	rename degree_source total_degree
 	la var total_degree "Total Degree"
 	duplicates drop hhid, force
-	keep hhid total_degree total_denom_degree
+	gen Tdegree_proportion= total_degree/total_denom_degree
+	keep hhid total_degree total_denom_degree Tdegree_proportion
 	sort hhid
 	tempfile temp_totald
 	save "`temp_totald'"
