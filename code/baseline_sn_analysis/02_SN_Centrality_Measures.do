@@ -73,10 +73,10 @@ foreach WID of local WARDS{
 	drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 	duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES 
 	
-	duplicates tag SN_hhid, gen(denom)
-	replace denom=denom+1
-	la var denom "Baseline Indegree Denominator"
-	note denom: Number that know the households
+	duplicates tag SN_hhid, gen(indegree_denom)
+	replace indegree_denom=indegree_denom+1
+	la var indegree_denom "Baseline Indegree Denominator"
+	note indegree_denom: Number that know the households
 	
 	//COMPUTE INDEGREE
 	gen long SN_hhid2 = SN_hhid if m01==01
@@ -84,7 +84,7 @@ foreach WID of local WARDS{
 	duplicates tag SN_hhid2 , gen(indegree)
 	replace indegree=indegree+1
 	la var indegree "Baseline Indegree"
-	keep SN_hhid denom indegree
+	keep SN_hhid indegree_denom indegree
 	rename SN_hhid hhid
 	la var hhid "HHID"
 	duplicates drop hhid, force
