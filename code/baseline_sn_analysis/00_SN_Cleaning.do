@@ -131,8 +131,8 @@ include "`GITHUBDIR'/code/baseline_sn_analysis/01_SN_Manual_Matching.do"
 destring hhid SN_hhid ward_id, replace
 drop m00_ Um00_ _merge
 
-gen m10Y= 0
-replace m10Y= 1 if m10_ > 0  & !mi(m10_)
+rename m01_ m01
+gen m10Y=m10_ > 0 if !mi(m10_)
 
 
 *************************************************

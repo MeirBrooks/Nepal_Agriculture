@@ -22,6 +22,8 @@ set more off
 	
 	local DATA "`DB'/Agriculture Extension Worker Project/Analysis/data/SN_data.dta"
 	use "`DATA'", clear
+	
+	local DATAOUT "`DB'/Agriculture Extension Worker Project/Analysis/data"
 
 
 *************************************************
@@ -59,9 +61,6 @@ foreach VAR in m01 m10Y{
 		
 		//CREATE OUTDEGREE NUMERATOR
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
-		drop if SN_hhid2 == . 
-		//STOP FROM BREAKING IF DROPPED ALL OBSERVATIONS
-		if `c(N)' == 0 continue
 		bys hhid : egen `VAR'_outdegree=count(SN_hhid2)
 		la var `VAR'_outdegree "Baseline Outdegree"
 		duplicates drop hhid, force
@@ -81,19 +80,17 @@ foreach VAR in m01 m10Y{
 		drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
 		duplicates drop hhid SN_hhid, force //REMOVING PARALLEL EDGES 
 		
-		duplicates tag SN_hhid, gen(indegree_denom)
-		replace indegree_denom= indegree_denom+1
-		la var indegree_denom "Baseline Indegree Denominator"
-		note indegree_denom: Number that know the households
+		duplicates tag SN_hhid, gen(`VAR'_indegree_denom)
+		replace `VAR'_indegree_denom= `VAR'_indegree_denom+1
+		la var `VAR'_indegree_denom "Baseline Indegree Denominator"
+		note `VAR'_indegree_denom: Number that know the households
 		
 		//COMPUTE INDEGREE
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
-		drop if SN_hhid2 == . 
-		duplicates tag SN_hhid2 , gen(`VAR'_indegree)
-		replace `VAR'_indegree=`VAR'_indegree+1
+		bys SN_hhid : egen `VAR'_indegree=count(SN_hhid2)
 		la var `VAR'_indegree "Baseline Indegree"
-		gen `VAR'_indegree_proportion= `VAR'_indegree/indegree_denom
-		keep SN_hhid indegree_denom `VAR'_indegree*
+		gen `VAR'_indegree_proportion= `VAR'_indegree/`VAR'_indegree_denom
+		keep SN_hhid `VAR'_indegree*
 		rename SN_hhid hhid
 		la var hhid "HHID"
 		duplicates drop hhid, force
@@ -112,21 +109,22 @@ foreach VAR in m01 m10Y{
 		//COMPUTE TOTAL DEGREE DENOMINATOR
 		netsis hhid SN_hhid, measure(adjacency) name(A,replace)
 		netsummarize A, generate(degree) statistic(rowsum)
-		rename degree_source total_denom_degree
-		la var total_denom_degree "Total Denominator Degree"
+		rename degree_source `VAR'_total_denom_degree
+		la var `VAR'_total_denom_degree "Total Denominator Degree"
 		drop degree_target
 		
 		//COMPUTE TOTAL DEGREE
 		di "TOTAL DEGREE"
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
+		if c(N) == 0 continue // STOPS ERRORS FROM REMOVING ALL OBSERVATIONS
 		netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
 		netsummarize B , generate(`VAR'_degree) statistic(rowsum)
 		rename `VAR'_degree_source `VAR'_total_degree
 		la var `VAR'_total_degree "Total Degree"
 		duplicates drop hhid, force
-		gen `VAR'_Tdegree_proportion= `VAR'_total_degree/total_denom_degree
-		keep hhid `VAR'_total_degree total_denom_degree `VAR'_Tdegree_proportion
+		gen `VAR'_Tdegree_proportion= `VAR'_total_degree/`VAR'_total_denom_degree
+		keep hhid `VAR'_total_degree `VAR'_total_denom_degree `VAR'_Tdegree_proportion
 		sort hhid
 		tempfile temp_totald
 		save "`temp_totald'"
@@ -189,27 +187,32 @@ foreach VAR in m01 m10Y{
 		drop _merge
 		
 
-	if(`WID'==111){
-	   save `VAR'_centrality_measures.dta, replace
-	 } 
-	else{
-		append using `VAR'_centrality_measures.dta
-		save `VAR'_centrality_measures.dta, replace
-	 }
-	 }
-}	
+		if(`WID'==111){
+			save "`DATAOUT'/`VAR'_centrality_measures.dta", replace
+		} 
+		else{
+			append using "`DATAOUT'/`VAR'_centrality_measures.dta"
+			save "`DATAOUT'/`VAR'_centrality_measures.dta", replace
+		} 
+	} //END WARDID
+} //END VAR
 
-use m01_centrality_measures.dta
+use "`DATAOUT'/m01_centrality_measures.dta"
 duplicates drop
 drop if ward_id==.
-save m01_centrality_measures.dta, replace
+save "`DATAOUT'/m01_centrality_measures.dta", replace
 
-use m10Y_centrality_measures.dta
+use "`DATAOUT'/m10Y_centrality_measures.dta"
 duplicates drop
 drop if ward_id==.
-save m10Y_centrality_measures.dta, replace
+save "`DATAOUT'/m10Y_centrality_measures.dta", replace
 
+merge 1:1 hhid using "`DATAOUT'/m01_centrality_measures.dta"
+
+replace m10Y_outdegree_proportion=0 if  _merge==2
+replace m10Y_indegree_proportion=0 if _merge==2 
+replace m10Y_Tdegree_proportion=0 if _merge==2 
 	
-merge 1:1 hhid using m01_centrality_measures.dta
-	
-save centrality_measures.dta, replace
+save "`DATAOUT'/centrality_measures.dta", replace
+erase "`DATAOUT'/m01_centrality_measures.dta"
+erase "`DATAOUT'/m10Y_centrality_measures.dta"
