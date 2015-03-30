@@ -19,9 +19,8 @@ cap log close
 
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
-	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA
-	local DB "/Users/sampadakc/Dropbox" // UPDATE TO YOUR DROPBOX DIRECTORY
-	}
+	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" 
+	local DB "/Users/sampadakc/Dropbox"
 	
 	if "`c(username)'"=="dwolfson"{
 	local GITHUBDIR "Y:/Nepal_Agriculture"
@@ -107,18 +106,23 @@ save `BASELINE'
 	la var `V' "Use Maize Intercropping"
 	recode `V' (2=0)
 
-merge 1:m hhid using "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture/code/baseline_sn_analysis/centrality_measures.dta"	
+merge 1:m hhid using "`GITHUBDIR'/code/baseline_sn_analysis/centrality_measures.dta"	
     drop if _merge==2
     drop _merge
-
 	
+save "`GITHUBDIR'/code/baseline_sn_analysis/centrality_agridecisions.dta", replace	
+		
 		
   foreach v of varlist e03_* e05_* e09_* e10_* e13_* e19_* e28_* e42_* e49_* e55_* e64_* f01 f02 f04  {
-       foreach var in outdegree_proportion indegree_proportion Tdegree_proportion{
+       foreach var in outdegree_proportion indegree_proportion Tdegree_proportion e_score betweenness_source{
 			di "`v'" _n "`var'"
 	          regress `v' `var' , cluster(ward_id)
-			  if `v' == e03_p1
+			  if "`v'" == "e03_p1" & "`var'" == "outdegree_proportion"{
+				outreg2 using "`GITHUBDIR'/output/sn_analysis/preliminary_analysis.xls", excel replace dec(3) ///
+					title("TITLE HERE") //
+			  }
+			  else{
+				outreg2 using "`GITHUBDIR'/output/sn_analysis/preliminary_analysis.xls", excel append dec(3) //
 			  }
 		}
   }		
-	
