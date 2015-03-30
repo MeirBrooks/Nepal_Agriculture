@@ -115,7 +115,7 @@ gen ID = _n // GEN ID FOR RECLINK
 
 reclink ward_id m00_ using `SN_HHID', idu(SN_hhid) idm(ID) gen(match) req(ward_id)
 	
-keep hhid ward_id m00_ Um00_ SN_hhid _merge match sn_member m01
+keep hhid ward_id m00_ Um00_ SN_hhid _merge match sn_member m01 m10
 order hhid ward_id sn_member SN_hhid m00_  Um00_ _merge match
 
 *************************************************
@@ -130,6 +130,9 @@ include "`GITHUBDIR'/code/baseline_sn_analysis/01_SN_Manual_Matching.do"
 
 destring hhid SN_hhid ward_id, replace
 drop m00_ Um00_ _merge
+
+gen m10Y= 0
+replace m10Y= 1 if m10_ > 0  & !mi(m10_)
 
 
 *************************************************
