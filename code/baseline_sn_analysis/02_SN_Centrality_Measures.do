@@ -45,7 +45,6 @@ foreach VAR in m01 m10Y{
 		tempfile temp_head
 		save "`temp_head'"
 			
-		
 	*OUTDEGREE*
 		di "OUTDEGREE - `WID'"
 		use "`DATA'", clear
@@ -71,10 +70,10 @@ foreach VAR in m01 m10Y{
 		tempfile temp_outd
 		save "`temp_outd'"
 
-	*INDEGREE*
+	*INDEGREE*	
+		di "INDEGREE - `WID'"
 		use "`DATA'", clear
 		//COMPUTE INDEGREE DENOMINATOR
-		di "INDEGREE - `WID'"
 		keep if ward_id== `WID'
 		drop if SN_hhid==.
 		drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
@@ -99,6 +98,7 @@ foreach VAR in m01 m10Y{
 		save "`temp_ind'"
 		
 	*TOTAL DEGREE*	
+		di "TOTAL DEGREE - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -114,10 +114,13 @@ foreach VAR in m01 m10Y{
 		drop degree_target
 		
 		//COMPUTE TOTAL DEGREE
-		di "TOTAL DEGREE"
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
-		if c(N) == 0 continue // STOPS ERRORS FROM REMOVING ALL OBSERVATIONS
+		if c(N) == 0 { // STOPS ERRORS FROM REMOVING ALL OBSERVATIONS
+		tempfile temp_totald
+		save "`temp_totald'"
+		}
+		else{
 		netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
 		netsummarize B , generate(`VAR'_degree) statistic(rowsum)
 		rename `VAR'_degree_source `VAR'_total_degree
@@ -128,8 +131,10 @@ foreach VAR in m01 m10Y{
 		sort hhid
 		tempfile temp_totald
 		save "`temp_totald'"
+		}
 		
 	*EIGENVALUE CENTRALITY*
+		di "EIGENVALUE CENTRAILTY - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -139,16 +144,22 @@ foreach VAR in m01 m10Y{
 		
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
+		if c(N) == 0 {
+		tempfile EIGEN_`WID'
+		save "`EIGEN_`WID''", replace
+		}
+		else{
 		netsis hhid SN_hhid2, measure(eigenvector) name(EIGEN, replace)
 		netsummarize EIGEN, gen(`VAR'_E) s(rowsum)
-		
 		keep hhid `VAR'_E_source
 		rename `VAR'_E_source `VAR'_e_score
 		la var `VAR'_e_score "Eigenvector Centrality Measure"
 		tempfile EIGEN_`WID'
 		save "`EIGEN_`WID''", replace
+		}
 		
 	*BETWEENESS CENTRALITY*	
+		di "BETWEENNESS CENTRAILTY - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -157,13 +168,18 @@ foreach VAR in m01 m10Y{
 		sort hhid
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
+		if c(N) == 0{
+		tempfile BETWEEN_`WID'
+		save "`BETWEEN_`WID''", replace
+		}
+		else{
 		netsis hhid SN_hhid2, measure(betweenness) name(BETWEEN, replace)
 		netsummarize BETWEEN, gen(`VAR'_betweenness) s(rowsum)
-		
 		keep hhid `VAR'_betweenness_source
 		la var `VAR'_betweenness_source "Betweenness Centrality Measure"
 		tempfile BETWEEN_`WID'
 		save "`BETWEEN_`WID''", replace
+		}
 			
 		use "`temp_head'", clear
 		sort hhid
@@ -212,7 +228,7 @@ merge 1:1 hhid using "`DATAOUT'/m01_centrality_measures.dta"
 replace m10Y_outdegree_proportion=0 if  _merge==2
 replace m10Y_indegree_proportion=0 if _merge==2 
 replace m10Y_Tdegree_proportion=0 if _merge==2 
-	
+
 save "`DATAOUT'/centrality_measures.dta", replace
 erase "`DATAOUT'/m01_centrality_measures.dta"
 erase "`DATAOUT'/m10Y_centrality_measures.dta"
