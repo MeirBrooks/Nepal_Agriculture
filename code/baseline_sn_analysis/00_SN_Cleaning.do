@@ -7,8 +7,8 @@ cap log close
 
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
-	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA
-	local DB "/Users/sampadakc/Dropbox" // UPDATE TO YOUR DROPBOX DIRECTORY
+	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture"
+	local DB "/Users/sampadakc/Dropbox"
 	}
 	
 	if "`c(username)'"=="dwolfson"{

@@ -11,8 +11,8 @@ clear all
 set more off
 	*USER SPECIFIC LOG + DATA LOAD*
 	if "`c(username)'"=="sampadakc"{
-	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture" // FILL IN FOR SAMPADA
-	local DB "/Users/sampadakc/Dropbox" // UPDATE TO YOUR DROPBOX DIRECTORY
+	local GITHUBDIR "/Users/sampadakc/Documents/GITHub/Nepal_Agriculture"
+	local DB "/Users/sampadakc/Dropbox"
 	}
 	
 	if "`c(username)'"=="dwolfson"{
@@ -24,14 +24,12 @@ set more off
 	use "`DATA'", clear
 	
 	local DATAOUT "`DB'/Agriculture Extension Worker Project/Analysis/data"
+	local RESULTS "`DB'/Agriculture Extension Worker Project/Analysis/output"
 
 
 *************************************************
-* STEP 3: DATA ANALYSIS CREATING AN EDGE LIST	*
+*  DATA ANALYSIS CREATING AN EDGE LIST	*
 *************************************************
-
-
-
 
 foreach VAR in m01 m10Y{
 	levelsof ward_id,local(WARDS)
@@ -45,6 +43,7 @@ foreach VAR in m01 m10Y{
 		tempfile temp_head
 		save "`temp_head'"
 			
+		
 	*OUTDEGREE*
 		di "OUTDEGREE - `WID'"
 		use "`DATA'", clear
@@ -70,10 +69,10 @@ foreach VAR in m01 m10Y{
 		tempfile temp_outd
 		save "`temp_outd'"
 
-	*INDEGREE*	
-		di "INDEGREE - `WID'"
+	*INDEGREE*
 		use "`DATA'", clear
 		//COMPUTE INDEGREE DENOMINATOR
+		di "INDEGREE - `WID'"
 		keep if ward_id== `WID'
 		drop if SN_hhid==.
 		drop if SN_hhid == hhid //REMOVING SELF-LOOPS 
@@ -98,7 +97,6 @@ foreach VAR in m01 m10Y{
 		save "`temp_ind'"
 		
 	*TOTAL DEGREE*	
-		di "TOTAL DEGREE - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -114,13 +112,10 @@ foreach VAR in m01 m10Y{
 		drop degree_target
 		
 		//COMPUTE TOTAL DEGREE
+		di "TOTAL DEGREE"
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
-		if c(N) == 0 { // STOPS ERRORS FROM REMOVING ALL OBSERVATIONS
-		tempfile temp_totald
-		save "`temp_totald'"
-		}
-		else{
+		if c(N) == 0 continue // STOPS ERRORS FROM REMOVING ALL OBSERVATIONS
 		netsis hhid SN_hhid2, measure(adjacency) name(B,replace)
 		netsummarize B , generate(`VAR'_degree) statistic(rowsum)
 		rename `VAR'_degree_source `VAR'_total_degree
@@ -131,10 +126,8 @@ foreach VAR in m01 m10Y{
 		sort hhid
 		tempfile temp_totald
 		save "`temp_totald'"
-		}
 		
 	*EIGENVALUE CENTRALITY*
-		di "EIGENVALUE CENTRAILTY - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -143,23 +136,17 @@ foreach VAR in m01 m10Y{
 		sort hhid
 		
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
-		drop if SN_hhid2 == .
-		if c(N) == 0 {
-		tempfile EIGEN_`WID'
-		save "`EIGEN_`WID''", replace
-		}
-		else{
+		
 		netsis hhid SN_hhid2, measure(eigenvector) name(EIGEN, replace)
 		netsummarize EIGEN, gen(`VAR'_E) s(rowsum)
+		
 		keep hhid `VAR'_E_source
 		rename `VAR'_E_source `VAR'_e_score
 		la var `VAR'_e_score "Eigenvector Centrality Measure"
 		tempfile EIGEN_`WID'
 		save "`EIGEN_`WID''", replace
-		}
 		
 	*BETWEENESS CENTRALITY*	
-		di "BETWEENNESS CENTRAILTY - `WID'"
 		use "`DATA'", clear
 		keep if ward_id ==`WID'
 		drop if SN_hhid==.
@@ -168,18 +155,13 @@ foreach VAR in m01 m10Y{
 		sort hhid
 		gen long SN_hhid2 = SN_hhid if `VAR'==01
 		drop if SN_hhid2 == .
-		if c(N) == 0{
-		tempfile BETWEEN_`WID'
-		save "`BETWEEN_`WID''", replace
-		}
-		else{
 		netsis hhid SN_hhid2, measure(betweenness) name(BETWEEN, replace)
 		netsummarize BETWEEN, gen(`VAR'_betweenness) s(rowsum)
+		
 		keep hhid `VAR'_betweenness_source
 		la var `VAR'_betweenness_source "Betweenness Centrality Measure"
 		tempfile BETWEEN_`WID'
 		save "`BETWEEN_`WID''", replace
-		}
 			
 		use "`temp_head'", clear
 		sort hhid
@@ -214,12 +196,12 @@ foreach VAR in m01 m10Y{
 } //END VAR
 
 use "`DATAOUT'/m01_centrality_measures.dta"
-duplicates drop
+duplicates drop hhid, force
 drop if ward_id==.
 save "`DATAOUT'/m01_centrality_measures.dta", replace
 
 use "`DATAOUT'/m10Y_centrality_measures.dta"
-duplicates drop
+duplicates drop hhid, force
 drop if ward_id==.
 save "`DATAOUT'/m10Y_centrality_measures.dta", replace
 
@@ -229,6 +211,31 @@ replace m10Y_outdegree_proportion=0 if  _merge==2
 replace m10Y_indegree_proportion=0 if _merge==2 
 replace m10Y_Tdegree_proportion=0 if _merge==2 
 
+drop _merge
+	
 save "`DATAOUT'/centrality_measures.dta", replace
 erase "`DATAOUT'/m01_centrality_measures.dta"
 erase "`DATAOUT'/m10Y_centrality_measures.dta"
+
+*************************************************
+*  M01 CENTRALITY V. M10 CENTRALITY	*
+*************************************************
+
+
+pwcorr m10Y_outdegree_proportion m10Y_indegree_proportion m10Y_e_score m10Y_betweenness_source
+
+twoway scatter m10Y_outdegree_proportion m01_outdegree_proportion
+graph export "`RESULTS'/outdegree.png" , replace
+ 
+twoway scatter m10Y_indegree_proportion m01_indegree_proportion
+graph export "`RESULTS'/indegree.png" , replace
+ 
+twoway scatter m10Y_e_score m01_e_score
+graph export "`RESULTS'/e_score.png" , replace
+ 
+twoway scatter m10Y_betweenness_source m01_betweenness_source
+graph export "`RESULTS'/betweenness.png" , replace
+ 
+
+
+ 
