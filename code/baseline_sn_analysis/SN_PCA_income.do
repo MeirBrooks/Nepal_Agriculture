@@ -35,10 +35,36 @@ la var ward_id "Dist/ASC/VDC/Ward ID"
 destring hhid ward_id, replace
 
 *************************************************
-*  KEEP SOCIOECONOMIC CHARACTERISTICS DATA	*
+*  KEEP SOCIOECONOMIC CHARACTERISTICS DATA & CASTE DATA	*
 *************************************************
 
-keep hhid ward_id c01* c02* c03* c05* c07_p* c10 h0* h1* h2* i0* i10
+keep hhid ward_id c01* c02* c03* c05* c07_p* c10 h0* h1* h2* i0* i10 /// socio-economic data
+     b0b_01 b0b_02 b0c_01 b0c_02 /// caste data 
+	 d02_unit d02_3 d02_2 d02_1 // LAND PLOT SIZE
+
+// caste variables
+gen caste = 0
+replace caste = b0b_01 if b0c_01 ==1 
+replace caste = b0b_02 if b0c_02 == 1 	 
+
+// land size variables 
+
+mvdecode d02_3 d02_2 d02_1, mv(-9=.m\-6=.a\-1=.d)
+
+foreach var in d02_1 d02_2 d02_3 {
+   gen `var'_ac = .
+   replace `var'_ac= `var' *0.007856 if d02_unit== 1
+   replace `var'_ac= `var' *1.6735 if d02_unit== 2
+   replace `var'_ac= `var' *0.0837 if d02_unit== 3
+   replace `var'_ac= `var' *0.0004910 if d02_unit== 4
+   replace `var'_ac= `var' *0.0042 if d02_unit== 5  
+   replace `var'_ac= `var' *0.1257 if d02_unit== 8
+   replace `var'_ac= `var' *0.1772 if d02_unit== 9
+   } 
+ 
+ egen land = rowtotal(d02_1_ac  d02_2_ac  d02_3_ac)
+ 
+   
 order hhid ward_id
 sort hhid
 
@@ -121,7 +147,7 @@ recode c10 (-1=0) (2=0)
 		*gen wealth_tile=5 if wealth_index<=r(r1)
 		*gen wealth_tile=10 if wealth_index>r(r1) & wealth_index
 		
-	keep hhid wealth_index rescale_wealth_index wealth_quintile wealth_decile
+	keep hhid wealth_index rescale_wealth_index wealth_quintile wealth_decile caste land
 
 	la var wealth_quintile "Wealth Index Quintiles"
 	la var wealth_decile "Wealth Index Deciles"
@@ -132,7 +158,7 @@ recode c10 (-1=0) (2=0)
  merge 1:m hhid using "`DATAOUT'/SN_Data.dta"
  drop _merge
  save "`DATAOUT'/SNID_wealthindex.dta", replace
-
+ 
  use "`DATAOUT'/PCA_wealthindex.dta", clear
  merge 1:1 hhid using "`DATAOUT'/centrality_measures.dta"
  drop _merge
