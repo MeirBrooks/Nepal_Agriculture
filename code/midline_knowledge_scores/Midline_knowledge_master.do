@@ -3,7 +3,11 @@ set more off
 if "`c(username)'" == "Seungmin Lee"{
 	global dropbox "C:/Users/SLee/Dropbox"
 	global NPL_Agri "C:/Users/SLee/Dropbox/Agriculture Extension Worker Project"
-}
+} 
+else if "`c(username)'" == "ecarls"{
+	global dropbox "C:/Users/ecarls/Dropbox"
+	global NPL_Agri "C:/Users/ecarls/Dropbox/Agriculture Extension Worker Project"
+} 
 	
 /*****************************************************************
 PROJECT: ICIMOD NEPAL AGRICULTURE
