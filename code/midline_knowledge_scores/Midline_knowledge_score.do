@@ -2,7 +2,7 @@ loc name_do Midline_knowledge_score
 
 cap log close
 cap file close _all
-log using "${NPL_Agri}/Analysis/logs/`name_do'.smcl", replace
+log using "${NPL_Agri_github}/logs/`name_do'.smcl", replace
 
 set varabbrev on
 set more off
@@ -11,20 +11,20 @@ set more off
 Program: Midline_knowledge_score.do
 Task: Grades Midline questions (G22-G32)
 Project: ICIMOD NEPAL AGRICULTURE
-Edited: Seungmin Lee, 15 September 2015 */
+Edited: Seungmin Lee, 16 September 2015 */
 
 /*
 INPUTS/OUTPUTS
 Inputs:
-	"${NPL_Agri}/Analysis/data/Midline_knowledge.dta" - Midline dataset
-	"${NPL_Agri}/Analysis/code/Midline_knowledge_scores/Knowledge_answers.do" - Answer keys for midline knowledge questions
+	"${NPL_Agri_github}/data/Midline_knowledge.dta" - Midline dataset
+	"${NPL_Agri_github}/code/Midline_knowledge_scores/Knowledge_answers.do" - Answer keys for midline knowledge questions
 	
 Outputs:
-	"${NPL_Agri}/Analysis/output/Midline_knowledge_graded.dta" - dataset including grades and incentive results
+	"${NPL_Agri_dropbox}/Analysis/output/Midline_knowledge_graded.dta" - dataset including grades and incentive results
 */
 
 /* Open a Midline dataset */
-use "${NPL_Agri}/Analysis/data/knowledge_score/Midline_knowledge.dta", clear
+use "${NPL_Agri_github}/data/knowledge_score/Midline_knowledge.dta", clear
 notes drop _dta // Drop dataset notes for a new dataset
 
 // Change baseline varibles temporarily to calculate answers
@@ -35,8 +35,8 @@ tempfile Midline_data
 save `Midline_data'
 
 // Define macros for answers 
-** This task will be done by "Midline_knowledge_answers.do" file
-include "${NPL_Agri}\Analysis\code\Midline_knowledge_scores\Knowledge_answers.do"
+** This task is done by "Midline_knowledge_answers.do" file
+include "${NPL_Agri_github}/code/midline_knowledge_scores/Knowledge_answers.do"
 
 loc crop TOMATO GINGER FRENCH_BEANS
 loc round BL MID
@@ -58,12 +58,14 @@ foreach crops of local crop {
 				foreach fert of local `q_no'_fert {
 					gen `rd'_`q_no'_`fert'_Correct = 0
 					replace `rd'_`q_no'_`fert'_Correct = 1 if (`rd'_`q_no'_`fert' == ``q_no'_`crops'_`fert'')
+					replace `rd'_`q_no'_`fert'_Correct = .n if (`rd'_`q_no'_`fert' == .s)
 					label var `rd'_`q_no'_`fert'_Correct "Did respondent answer ``rd'_`q_no'_`fert' correctly?"
 					}
 				}
 			else {
 				gen `rd'_`q_no'_Correct = 0
 				replace `rd'_`q_no'_Correct = 1 if (`rd'_`q_no' >= ``q_no'_`crops'_LB' & `rd'_`q_no' <= ``q_no'_`crops'_UB')
+				replace `rd'_`q_no'_Correct = .n if (`rd'_`q_no' == .s)
 				label var `rd'_`q_no'_Correct "Did respondent answer `rd'_`q_no' correctly?"
 			}
 		}
@@ -85,18 +87,21 @@ foreach round in BL MID {
 	quietly ds `round'*Correct
 	loc `round'_Answers `r(varlist)'
 	egen `round'_knowledge_score = rowtotal(``round'_Answers')
+	replace `round'_knowledge_score = `round'_knowledge_score * (100/`total_qs_answered') // scale to max.point 100
 	bys A02 A04 A06 A07: egen Avg_`round'_knowledge_score = mean(`round'_knowledge_score)
-	label var `round'_knowledge_score "HH's `round' knowledge score"
-	label var Avg_`round'_knowledge_score "Ward-level average `round' knowledge score"
+	label var `round'_knowledge_score "HH's `round' knowledge score, out of 100"
+	label var Avg_`round'_knowledge_score "Ward-level average `round' knowledge score, out of 100"
 	sort `id_vars'
 }
+
 /* Incentive-decision */
 gen incentive = 0
 // Incentive threshold: 20% increase AND 0.8 point increase in village-average score
 tempvar pct_criteria fixed_criteria
 gen `pct_criteria' = 1.2
 gen `fixed_criteria' = 0.8
-replace incentive = 1 if (Avg_MID_knowledge_score >= Avg_BL_knowledge_score * `pct_criteria' & Avg_MID_knowledge_score >= Avg_BL_knowledge_score + `fixed_criteria')
+local incentive_criteria "Avg_MID_knowledge_score >= Avg_BL_knowledge_score * `pct_criteria' & Avg_MID_knowledge_score >= Avg_BL_knowledge_score + `fixed_criteria'"
+replace incentive = 1 if (`incentive_criteria')
 label var incentive "Does communicator of this village get incentives?"
 
 /* Data Label */
@@ -110,12 +115,19 @@ notes: Created by "Midline_knowledge_score.do"
 
 /* Save */
 compress
-save "${NPL_Agri}\Analysis\data\knowledge_score\Midline_knowledge_graded_ver2.dta", replace
+save "${NPL_Agri_dropbox}/Analysis/data/knowledge_score/Midline_knowledge_graded_ver3.dta", replace
+
+// This line is the extra lines to show results at ward-level.
+keep A02 A04 A06 A07 Avg_* incentive midline_crop
+duplicates drop
+tab midline_crop incentive
 
 // Close log and exit
 cap file close _all
 cap log close
 exit
+
+
 
 /*
 // Check the scores for each crop
@@ -124,10 +136,16 @@ exit
   ex) Go through the questionnaire and understand skipping patterns (some responents might not answer the questions cuz they skipped it)
      It it because they are really missing? or they answered as "don't know" (actually went through the questions)
 	  => There are skip codes (g01_t, G01_g, g01_f)
-	  => Label the households who skipped the questions as "skipped" instead of giving "0" score.
-   2) Gradiing criteria- Answers that slightly differ should also be correctd. (ex. answer is 50cm, but a person answered as 49cm)
+	  => Label the households who skipped the questions as "correctedly skipped (.s)" instead of giving "0" score.
+	  => Baseline data has "g01", so we can figure out whether questions are correctedly skipped or not.
+	  => Midline data has "G22" - if the answer is "no intercropping", then the rest of questions are correctedly skipped
+	 *** Correct answers should have no corretedly skipped answers. In other words, if a respondents correcteldy skipped some questions, s/he got wrong answers for them.
+   2) Gradiing criteria- Answers that slightly differ should also be corrected. (ex. answer is 50cm, but a person answered as 49cm)
+    => Not acceptable ranges are set as (+- 10%)
    3) Differences in scores b/w Tomato, Ginger and French Beans
+    => Done
    4) Make the score interpretable (out of 100)
+    => Done
    
   *** Some households may know nothing at baseline (so their answers are missing ) but knew something at midline (so their answers are non-missing)
   => We should take this into consideration, since this is different from knowing something both at baseline and midline.
