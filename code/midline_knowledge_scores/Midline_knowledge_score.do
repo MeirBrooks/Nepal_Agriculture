@@ -135,7 +135,7 @@ exit
 // 1) Why are there so many '0's? 
   ex) Go through the questionnaire and understand skipping patterns (some responents might not answer the questions cuz they skipped it)
      It it because they are really missing? or they answered as "don't know" (actually went through the questions)
-	  => There are skip codes (g01_t, G01_g, g01_f)
+	  => There are skip codes (g01_t, G01_g, g01_f, etc.)
 	  => Label the households who skipped the questions as "correctedly skipped (.s)" instead of giving "0" score.
 	  => Baseline data has "g01", so we can figure out whether questions are correctedly skipped or not.
 	  => Midline data has "G22" - if the answer is "no intercropping", then the rest of questions are correctedly skipped
