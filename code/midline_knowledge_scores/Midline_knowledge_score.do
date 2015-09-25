@@ -87,7 +87,7 @@ foreach round in BL MID {
 	quietly ds `round'*Correct
 	loc `round'_Answers `r(varlist)'
 	egen `round'_knowledge_score = rowtotal(``round'_Answers')
-	replace `round'_knowledge_score = `round'_knowledge_score * (100/`total_qs_answered') // scale to max.point 100
+	// replace `round'_knowledge_score = `round'_knowledge_score * (100/`total_qs_answered') // scale to max.point 100
 	bys A02 A04 A06 A07: egen Avg_`round'_knowledge_score = mean(`round'_knowledge_score)
 	label var `round'_knowledge_score "HH's `round' knowledge score, out of 100"
 	label var Avg_`round'_knowledge_score "Ward-level average `round' knowledge score, out of 100"
@@ -117,19 +117,31 @@ notes: Created by "Midline_knowledge_score.do"
 compress
 save "${NPL_Agri_dropbox}/Analysis/data/knowledge_score/Midline_knowledge_graded_ver3.dta", replace
 
-// This line is the extra lines to show results at ward-level.
-keep A02 A04 A06 A07 Avg_* incentive midline_crop
-duplicates drop
-tab midline_crop incentive
-
 // Close log and exit
 cap file close _all
 cap log close
 exit
 
-
-
 /*
+***** The codes in the box below has some commands describing data patterns *****
+// The lines below shows the list of hh-level baseline scores and midline scores
+list BL_knowledge_score MID_knowledge_score if (midline_crop == "TOMATO") 
+list BL_knowledge_score MID_knowledge_score if (midline_crop == "GINER") 
+list BL_knowledge_score MID_knowledge_score if (midline_crop == "FRENCH_BEANS") 
+
+// The lines below calculates the different b/w baseline score and midline score and its distribution
+gen improvement = MID_knowledge_score - BL_knowledge_score
+hist improvement
+
+// The lines below keeps one observation per ward, and shows incentive decision under current design and graph of baseline/midline score per crop
+keep A02 A04 A06 A07 Avg_* incentive midline_crop
+duplicates drop
+tab midline_crop incentive
+twoway (kdensity Avg_BL_knowledge_score) (kdensity Avg_MID_knowledge_score) if (midline_crop=="TOMATO")
+twoway (kdensity Avg_BL_knowledge_score) (kdensity Avg_MID_knowledge_score) if (midline_crop=="GINGER")
+twoway (kdensity Avg_BL_knowledge_score) (kdensity Avg_MID_knowledge_score) if (midline_crop=="FRENCH_BEANS")
+*********************************************************************************
+
 // Check the scores for each crop
 // Distribution is bothering
 // 1) Why are there so many '0's? 
@@ -150,3 +162,6 @@ exit
   *** Some households may know nothing at baseline (so their answers are missing ) but knew something at midline (so their answers are non-missing)
   => We should take this into consideration, since this is different from knowing something both at baseline and midline.
   
+
+  
+  ** Some wards (ex. 2-13-31-7) ward has some correct answers at baseline, while none of them answered at midline, which is VERY weird.

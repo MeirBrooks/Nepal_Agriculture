@@ -12,7 +12,7 @@ set more off
 Program: Midline_knowledge_prep.do
 Task: Import mid-line knowledge test response (G22-G32)
 Project: ICIMOD NEPAL AGRICULTURE
-Edited: Seungmin Lee, 16 September 2015 */
+Edited: Seungmin Lee, 25 September 2015 */
 
 /*
 Required User Written Command
@@ -21,8 +21,9 @@ Required User Written Command
 /*
 INPUTS/OUTPUTS
 Inputs:
-	"${NPL_Agri_dropbox}/Analysis/data/Section G 22 to G 32_LS.xlsx" - Midline test data
-	"${NPL_Agri_dropbox}/Analysis/data/Baseline-2014-10-20.dta" - Baseline data
+	"${NPL_Agri_dropbox}/Analysis/data/Baseline_Section_G.dta" - Section G of Baseline data
+		This dataset is the revised version of the original dataet (Baseline-2014-10-20.dta)
+	"${NPL_Agri_dropbox}/Analysis/data/Midline_Section G 22 to G 32-2015-09-25.xlsx" - Midline test data
 	
 Outputs:
 	"${NPL_Agri_github}/Analysis/data/knowledge_score/Midline_knowledge.dta" - dataset including responses
@@ -36,13 +37,11 @@ loc numeric_questions G22 G23 G24 G25 G26 G27 G28 G29 G30
 
 // import baseline dataset and save 3 different versions for each crop
 foreach crop in t g f {
-	use "${NPL_Agri_dropbox}/Analysis/data/Baseline-2014-10-20", clear
+	use "${NPL_Agri_dropbox}/Analysis/data/Baseline_Section_G", clear
 	rename (a03 a05 a07 a08 a09) (`id_vars') // rename baseline id variables to be merged with midline dataset
 	 // keep single crop questions only (we also keep "G01" to detect correctedly skipped quesitions later
 	keep `id_vars' g01*`crop' g2*`crop'* g30*`crop'?? g31*`crop'??
-	if ("`crop'" != "t") { // Drop non-graded questions
-		drop g20*
-	}
+	drop g20* // Drop unnecessary variable
 	rename *_`crop'* **
 	rename *, upper
 	rename (G30_1 G30_2 G30_3 G31_1 G31_2 G31_3 G31_4) (G30_UREA G30_DAP G30_POTAS G31_SANDY G31_SANDY_LOAM G31_LOAM G31_CLAY)
@@ -55,7 +54,7 @@ foreach crop in t g f {
 // Prepare midline dataset
 // Open raw excel spreadsheet and retrieve name, label and answer keys for each variable
 foreach var of loc crops {
-	import excel "${NPL_Agri_dropbox}/Analysis/data/Section G 22 to G 32_LS.xlsx", sheet("`var'") clear
+	import excel "${NPL_Agri_dropbox}/Analysis/data/Midline_Section G 22 to G 32-2015-09-25.xlsx", sheet("`var'") clear
 	drop if (length(B) != 3) // Keep proper rows only
 	
 	forval i=1/16 { // Retrieve variable information
@@ -174,7 +173,6 @@ replace BL_G29 = .s if (BL_G26 == 2)
 replace MID_G28 = .s if (MID_G27 == 2)
 replace MID_G29 = .s if (MID_G27 == 2)
 replace MID_G30 = .s if (MID_G27 == 2)
-
 
 // Save and Exit
 
