@@ -35,7 +35,7 @@ tempfile Midline_data
 save `Midline_data'
 
 // Define macros for answers 
-** This task is done by "Midline_knowledge_answers.do" file
+** This task is done by "Knowledge_answers.do" file
 include "${NPL_Agri_github}/code/midline_knowledge_scores/Knowledge_answers.do"
 
 loc crop TOMATO GINGER FRENCH_BEANS
@@ -87,7 +87,7 @@ foreach round in BL MID {
 	quietly ds `round'*Correct
 	loc `round'_Answers `r(varlist)'
 	egen `round'_knowledge_score = rowtotal(``round'_Answers')
-	// replace `round'_knowledge_score = `round'_knowledge_score * (100/`total_qs_answered') // scale to max.point 100
+	replace `round'_knowledge_score = `round'_knowledge_score * (100/`total_qs_answered') // scale to max.point 100
 	bys A02 A04 A06 A07: egen Avg_`round'_knowledge_score = mean(`round'_knowledge_score)
 	label var `round'_knowledge_score "HH's `round' knowledge score, out of 100"
 	label var Avg_`round'_knowledge_score "Ward-level average `round' knowledge score, out of 100"

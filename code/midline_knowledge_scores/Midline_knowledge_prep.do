@@ -56,26 +56,23 @@ foreach crop in t g f {
 
 // Prepare midline dataset
 // Open raw excel spreadsheet and retrieve name, label and answer keys for each variable
-import excel "${NPL_Agri_dropbox}/Analysis/data/Midline_Section G 22 to G 32-2015-09-25.xlsx", sheet("`var'") clear
-drop if (length(B) != 3) // Keep proper rows only
-forval i=1/16 { // Retrieve variable information
-	loc vname`i'=B[`i']
-	loc label`i'=C[`i']
-	loc notes`i'=D[`i']
-}
-drop A-G
-
-// Transpose data and apply retrieved information
-sxpose, clear force
-forval i=1/16 {
-	note _var`i': `notes`i''
-	label var _var`i' "`label`i''"
-	rename _var`i' `vname`i''
-}
-save `midline_all'
-// Make a crop category variable
 foreach var of loc crops {
-	use `midline_all', clear
+	import excel "${NPL_Agri_dropbox}/Analysis/data/Midline_Section G 22 to G 32-2015-09-25.xlsx", sheet("`var'") clear
+	drop if (length(B) != 3) // Keep proper rows only
+	forval i=1/16 { // Retrieve variable information
+		loc vname`i'=B[`i']
+		loc label`i'=C[`i']
+		loc notes`i'=D[`i']
+	}
+	drop A-G
+
+	// Transpose data and apply retrieved information
+	sxpose, clear force
+	forval i=1/16 {
+		note _var`i': `notes`i''
+		label var _var`i' "`label`i''"
+		rename _var`i' `vname`i''
+	}
 	gen str midline_crop = "`var'"
 	replace midline_crop = "FRENCH_BEANS" if ("`var'" == "FRENCH BEANS")
 	label var midline_crop "What crop questions did farmers in this village answer in mindilne survey?"
