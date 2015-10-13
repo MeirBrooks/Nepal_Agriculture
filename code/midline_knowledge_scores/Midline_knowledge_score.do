@@ -97,11 +97,9 @@ foreach round in BL MID {
 /* Incentive-decision */
 gen incentive = 0
 // Incentive threshold: 20% increase AND 0.8 point increase in village-average score
-tempvar pct_criteria fixed_criteria
-gen `pct_criteria' = 1.2
-gen `fixed_criteria' = 0.8
-local incentive_criteria "Avg_MID_knowledge_score >= Avg_BL_knowledge_score * `pct_criteria' & Avg_MID_knowledge_score >= Avg_BL_knowledge_score + `fixed_criteria'"
-replace incentive = 1 if (`incentive_criteria')
+local pct_criteria Avg_MID_knowledge_score >= Avg_BL_knowledge_score * 1.2
+local fixed_criteria Avg_MID_knowledge_score >= Avg_BL_knowledge_score + ((0.8/`total_qs_answered')*100)
+replace incentive = 1 if (`pct_criteria' & `fixed_criteria')
 label var incentive "Does communicator of this village get incentives?"
 
 /* Data Label */
@@ -126,7 +124,7 @@ exit
 ***** The codes in the box below has some commands describing data patterns *****
 // The lines below shows the list of hh-level baseline scores and midline scores
 list BL_knowledge_score MID_knowledge_score if (midline_crop == "TOMATO") 
-list BL_knowledge_score MID_knowledge_score if (midline_crop == "GINER") 
+list BL_knowledge_score MID_knowledge_score if (midline_crop == "GINGER") 
 list BL_knowledge_score MID_knowledge_score if (midline_crop == "FRENCH_BEANS") 
 
 // The lines below calculates the different b/w baseline score and midline score and its distribution
@@ -165,3 +163,5 @@ twoway (kdensity Avg_BL_knowledge_score) (kdensity Avg_MID_knowledge_score) if (
 
   
   ** Some wards (ex. 2-13-31-7) ward has some correct answers at baseline, while none of them answered at midline, which is VERY weird.
+
+  

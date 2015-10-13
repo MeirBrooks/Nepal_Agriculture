@@ -154,7 +154,7 @@ foreach qs of local bl_questions {
 }
 drop BL_G01
 
-// Next, "MID_G22" in midline-survey asks respondents to skipp all questions if answered "no intercropping"
+// Next, "MID_G22" in midline-survey asks respondents to skip all questions if answered "no intercropping"
 ds MID_G23 MID_G24 MID_G25 MID_G26 MID_G27 MID_G28 MID_G29 MID_G3*
 loc mid_questions `r(varlist)'
 foreach qs of local mid_questions {
