@@ -96,7 +96,7 @@ foreach round in BL MID {
 
 /* Incentive-decision */
 gen incentive = 0
-// Incentive threshold: 20% increase AND 0.8 point increase in village-average score
+// Incentive threshold: 20% increase AND 0.8 point increase (5 points in max-100 scale) in village-average score
 local pct_criteria Avg_MID_knowledge_score >= Avg_BL_knowledge_score * 1.2
 local fixed_criteria Avg_MID_knowledge_score >= Avg_BL_knowledge_score + ((0.8/`total_qs_answered')*100)
 replace incentive = 1 if (`pct_criteria' & `fixed_criteria')
